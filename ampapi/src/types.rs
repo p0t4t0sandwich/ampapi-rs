@@ -4,11 +4,12 @@
 pub mod types {
     use std::collections::HashMap;
     use serde::{ Deserialize, Serialize };
+    use serde_repr::{Serialize_repr, Deserialize_repr};
 
 
     /// ActionResult - Generic response type for calls that return a result and a reason for failure
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct ActionResult<T> {
         /// true if successful, false if not
         pub Status: bool,
@@ -20,7 +21,7 @@ pub mod types {
 
     /// AMPVersion - AMP version information
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct AMPVersion {
         /// The major version number
         pub Major: i32,
@@ -38,7 +39,7 @@ pub mod types {
 
     /// Branding - Defines the Branding object as part of the ModuleInfo object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Branding {
         /// Whether to display branding
         pub DisplayBranding: bool,
@@ -72,7 +73,7 @@ pub mod types {
 
     /// ConsoleEntry - Struct for the result of API.Core#GetUpdates.ConsoleEntries
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct ConsoleEntry {
         /// The timestamp of the console entry
         pub Timestamp: String,
@@ -88,7 +89,7 @@ pub mod types {
 
     /// CPUInfo - CPU information object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct CPUInfo {
         /// Number of CPU sockets
         pub Sockets: i32,
@@ -108,7 +109,7 @@ pub mod types {
 
     /// EndpointInfo - An application endpoint object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct EndpointInfo {
         /// The display name of the endpoint
         pub DisplayName: String,
@@ -120,7 +121,7 @@ pub mod types {
 
     /// IADSInstance - An ADS instance object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct IADSInstance {
         /// The ADS instance ID
         pub Id: i32,
@@ -154,7 +155,7 @@ pub mod types {
 
     /// Instance - An instance object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Instance {
         /// The instance ID
         pub InstanceID: UUID,
@@ -213,7 +214,7 @@ pub mod types {
 
     /// InstanceDatastore - A datastore object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct InstanceDatastore {
         /// The datastore ID
         pub Id: i32,
@@ -223,7 +224,7 @@ pub mod types {
 
     /// LoginResult - Response type for API.Core.Login
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct LoginResult {
         /// Whether the login was successful
         pub success: bool,
@@ -241,7 +242,7 @@ pub mod types {
 
     /// Message - Message type for API.Core.GetUpdates status messages (along with WS keep alive)
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Message {
         /// The message ID
         pub Id: UUID,
@@ -255,40 +256,40 @@ pub mod types {
         pub AgeMinutes: i32,
     }
 
-    /// metric_color_serde - A serde module for metric colors
+    /// option_string_serde - A serde module for optional strings
     /// Author: p0t4t0sandwich
-    pub mod metric_color_serde {
+    pub mod option_string_serde {
         use serde::{Deserialize, Deserializer, Serializer};
 
-        /// serialize - Serialize a color
+        /// serialize - Serialize a string
         /// Author: p0t4t0sandwich
-        /// * `color` - The color to serialize
+        /// * `string` - The string to serialize
         /// * `serializer` - The serializer
         /// Returns Result<String, serde::ser::Error>
-        pub fn serialize<S>(color: &Option<String>, serializer: S) -> core::result::Result<S::Ok, S::Error>
+        pub fn serialize<S>(string: &Option<String>, serializer: S) -> core::result::Result<S::Ok, S::Error>
         where
             S: Serializer,
         {
-            match color {
-                Some(color) => serializer.serialize_str(color),
+            match string {
+                Some(string) => serializer.serialize_str(string),
                 None => serializer.serialize_none(),
             }
         }
 
-        /// deserialize - Deserialize a color
+        /// deserialize - Deserialize a string
         /// Returns Result<Option<String>, serde::de::Error>
         pub fn deserialize<'de, D>(deserializer: D) -> core::result::Result<Option<String>, D::Error>
         where
             D: Deserializer<'de>,
         {
-            let color: Option<String> = Option::deserialize(deserializer)?;
-            Ok(color)
+            let string: Option<String> = Option::deserialize(deserializer)?;
+            Ok(string)
         }
     }
 
     /// Metric - A metric object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Metric {
         /// The raw value
         pub RawValue: i32,
@@ -300,21 +301,21 @@ pub mod types {
         pub Units: String,
         /// The color
         #[serde(default)]
-        #[serde(with = "metric_color_serde")]
+        #[serde(with = "option_string_serde")]
         pub Color: Option<String>,
         /// The second color
         #[serde(default)]
-        #[serde(with = "metric_color_serde")]
+        #[serde(with = "option_string_serde")]
         pub Color2: Option<String>,
         /// The third color
         #[serde(default)]
-        #[serde(with = "metric_color_serde")]
+        #[serde(with = "option_string_serde")]
         pub Color3: Option<String>,
     }
 
     /// ModuleInfo - A struct to represent the object returned by the ADSModule#GetModuleInfo() method
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct ModuleInfo {
         /// The name of the module
         pub Name: String,
@@ -370,7 +371,7 @@ pub mod types {
 
     /// PlatformInfo - Platform information object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct PlatformInfo {
         /// The CPU information object
         pub CPUInfo: CPUInfo,
@@ -388,7 +389,7 @@ pub mod types {
 
     /// RemoteTargetInfo - A struct to represent the object returned by the ADSModule#GetTargetInfo() method
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct RemoteTargetInfo {
         /// The IP address list
         pub IPAddressList: Vec<String>,
@@ -402,15 +403,15 @@ pub mod types {
 
     /// Result - Generic response type for calls that return a result
     /// Author: p0t4t0sandwich
-    // #[derive(Serialize, Deserialize, Debug)]
-    // pub struct Result<T> {
-    //     /// The result object
-    //     pub result: T,
-    // }
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    pub struct Result<T> {
+        /// The result object
+        pub result: T,
+    }
 
     /// RunningTask - A running task object returned by the Core#GetTasks() method
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct RunningTask {
         /// Whether the task is the primary task
         pub IsPrimaryTask: bool,
@@ -444,7 +445,7 @@ pub mod types {
 
     /// SettingsSpec - Response object for Core.GetSettingsSpec()
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct SettingsSpec {
         /// The result
         pub result: HashMap<String, Spec>,
@@ -452,7 +453,7 @@ pub mod types {
 
     /// Spec - A setting specification object
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Spec {
         /// Whether the setting is read-only
         pub ReadOnly: bool,
@@ -502,12 +503,38 @@ pub mod types {
 
     /// State - Represents the state of an instance
     /// Author: p0t4t0sandwich
-    ///TODO: See if enums work with serde
-    pub type State = i32;
+    #[derive(Debug, Clone, Serialize_repr, Deserialize_repr)]
+    #[repr(i16)]
+    pub enum State {
+        Undefined = -1,
+        Stopped = 0,
+        PreStart = 5,
+        /// The server is performing some first-time-start configuration.
+        Configuring = 7,
+        Starting = 10,
+        Ready = 20,
+        /// Server is in the middle of stopping, but once shutdown has finished it will automatically restart.
+        Restarting = 30,
+        Stopping = 40,
+        PreparingForSleep = 45,
+        /// The application should be able to be resumed quickly if using this state. Otherwise use Stopped.
+        Sleeping = 50,
+        /// The application is waiting for some external service/application to respond/become available.
+        Waiting = 60,
+        Installing = 70,
+        Updating = 75,
+        /// Used during installation, means that some user input is required to complete setup (authentication etc).
+        AwaitingUserInput = 80,
+        Failed = 100,
+        Suspended = 200,
+        Maintainence = 250,
+        /// The state is unknown, or doesn't apply (for modules that don't start an external process)
+        Indeterminate = 999,
+    }
 
     /// Status - Struct for the result of API.Core.GetStatus
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Status {
         /// The state of the instance
         pub State: State,
@@ -519,7 +546,7 @@ pub mod types {
 
     /// Task - Generic response type for calls that return a result
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Task<T> {
         /// The result object
         pub result: T,
@@ -527,7 +554,7 @@ pub mod types {
 
     /// UpdateInfo - A struct to represent the object returned by the ADSModule#GetUpdateInfo() method
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct UpdateInfo {
         /// Whether an update is available
         pub UpdateAvailable: bool,
@@ -545,7 +572,7 @@ pub mod types {
 
     /// Updates - Response type for API.Core.GetUpdates
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Updates {
         /// The status of the server
         pub Status: Status,
@@ -561,7 +588,7 @@ pub mod types {
 
     /// UserInfo - Information about the user
     /// Author: p0t4t0sandwich
-    #[derive(Serialize, Deserialize, Debug)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct UserInfo {
         /// The user ID
         pub ID: UUID,
