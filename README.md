@@ -1,9 +1,120 @@
 # ampapi-rust
 
-Rust Library for the AMP API
+An API that allows you to communicate with AMP installations from within Rust.
 
-## TODO
+Documentation for available API calls can be found by appending /API to the URL of any existing AMP installation.
 
-- [ ] Generate Methods from API Spec
-  - [ ] Requires a hefty amount of arg-type mapping, maybe just default to strings?
-- [ ] Possibly generate async methods
+Support:
+
+- Ping `@thepotatoking3452` in the `#development` channel of the [AMP Discord](https://discord.gg/cubecoders)
+- My own [development Discord](https://discord.neuralnexus.dev/)
+
+## Installation
+
+<!-- ```bash -->
+<!-- go get github.com/p0t4t0sandwich/ampapi-rust -->
+<!-- ``` -->
+
+## Examples
+
+### CommonAPI Example
+
+```go
+package main
+
+import (
+    "ampapi/ampapi/modules"
+)
+
+func main() {
+    // If you know the module that the instance is using, specify it instead of CommonAPI
+    API := modules.NewCommonAPI("http://localhost:8080/", "admin", "myfancypassword123")
+
+    // API call parameters are simply in the same order as shown in the documentation.
+    API.Core.SendConsoleMessage("say Hello Everyone, this message was sent from the Go API!")
+
+    currentStatus := API.Core.GetStatus()
+    CPUUsagePercent := currentStatus.Metrics["CPU Usage"].Percent
+
+    fmt.Printf("Current CPU usage is: %v%%\n", CPUUsagePercent)
+}
+```
+
+### Example using the ADS to manage an instance
+
+```go
+package main
+
+import (
+    "ampapi/ampapi"
+    "ampapi/ampapi/modules"
+    "strconv"
+)
+
+func main() {
+    API := modules.NewADS("http://localhost:8080/", "admin", "myfancypassword123")
+
+    // Get the available instances
+    instancesResult := API.ADSModule.GetInstances()
+
+    targets := instancesResult.Result
+
+    // In this example, my Hub server is on the second target
+    // If you're running a standalone setup, you can just use targets[1]
+    target := targets[1]
+
+    var hub_instance_id ampapi.UUID
+
+    // Get the instance ID of the Hub server
+    for _, instance := range target.AvailableInstances {
+        if instance.InstanceName == "Hub" {
+            hub_instance_id = instance.InstanceID
+            break
+        }
+    }
+
+    // Use the instance ID to get the API for the instance
+    Hub, ok := API.InstanceLogin(hub_instance_id, "Minecraft").(*modules.Minecraft)
+    if !ok {
+        panic("Failed to login to instance")
+    }
+
+    // Get the current CPU usage
+    currentStatus := Hub.Core.GetStatus()
+    CPUUsagePercent := currentStatus.Metrics["CPU Usage"].Percent
+
+    // Send a message to the console
+    Hub.Core.SendConsoleMessage("say Current CPU usage is: " + strconv.FormatFloat(CPUUsagePercent, 'f', 2, 64) + "%")
+}
+```
+
+### CommonAPI Example, handling the sessionId and rememberMeToken manually (not recommended)
+
+```go
+package main
+
+import (
+    "ampapi/ampapi/modules"
+)
+
+func main() {
+    API := modules.NewCommonAPI("http://localhost:8080/")
+
+    // The third parameter is either used for 2FA logins, or if no password is specified to use a remembered token from a previous login, or a service login token.
+    loginResult := API.Core.Login("admin", "myfancypassword123", "", false)
+
+    if loginResult.Success {
+        fmt.Println("Login successful!")
+        API.AMPAPI.SessionId = loginResult.SessionId
+
+        // API call parameters are simply in the same order as shown in the documentation.
+        API.Core.SendConsoleMessage("say Hello Everyone, this message was sent from the Go API!")
+        currentStatus := API.Core.GetStatus()
+        CPUUsagePercent := currentStatus.Metrics["CPU Usage"].Percent
+        fmt.Printf("Current CPU usage is: %v%%\n", CPUUsagePercent)
+    } else {
+        fmt.Println("Login failed!")
+        fmt.Println(loginResult)
+    }
+}
+```
