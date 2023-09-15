@@ -1,12 +1,13 @@
 #![crate_name = "ampapi"]
 
+use std::collections::HashMap;
+
 use serde::de;
 use serde::{Deserialize, Serialize};
-use serde_json::Map;
-use serde_json::Value;
 use reqwest::blocking;
 
 mod types;
+use serde_json::Value;
 use types::types::LoginResult;
 
 /// AMPAPI - Struct for interacting with the AMP API
@@ -58,8 +59,8 @@ impl AMPAPI {
     /// * `endpoint` - The endpoint to call
     /// * `args` - A map of arguments to pass to the endpoint
     /// Returns Result<T, reqwest::Error>
-    pub fn api_call<T: de::DeserializeOwned>(&self, endpoint: String, args: Map<String, Value>) -> Result<T, reqwest::Error> {
-        let mut map: Map<String, Value> = Map::new();
+    pub fn api_call<T: de::DeserializeOwned>(&self, endpoint: String, args: HashMap<String, Value>) -> Result<T, reqwest::Error> {
+        let mut map: HashMap<String, Value> = HashMap::new();
         map.insert("SESSIONID".to_string(), Value::String(self.session_id.to_string()));
         for (key, value) in args.iter() {
             map.insert(key.to_string(), value.clone());
@@ -80,7 +81,7 @@ impl AMPAPI {
     /// AMPAPI.login - Simplified login function
     /// Returns Result<LoginResult, reqwest::Error>
     pub fn login(&self) -> Result<LoginResult, reqwest::Error> {
-        let mut args = Map::new();
+        let mut args = HashMap::new();
         args.insert("username".to_string(), Value::String(self.username.clone()));
         args.insert("password".to_string(), Value::String(self.password.clone()));
         args.insert("token".to_string(), Value::String(self.remember_me_token.clone()));
