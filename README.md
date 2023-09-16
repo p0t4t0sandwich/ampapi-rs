@@ -1,4 +1,13 @@
-# ampapi-rust
+# ampapi-rs
+
+[![License](https://img.shields.io/github/license/p0t4t0sandwich/ampapi-rs?color=blue)](https://img.shields.io/github/downloads/p0t4t0sandwich/ampapi-rs/LICENSE)
+[![Github](https://img.shields.io/github/stars/p0t4t0sandwich/ampapi-rs)](https://github.com/p0t4t0sandwich/ampapi-rs)
+[![Github Issues](https://img.shields.io/github/issues/p0t4t0sandwich/ampapi-rs?label=Issues)](https://github.com/p0t4t0sandwich/ampapi-rs/issues)
+[![Discord](https://img.shields.io/discord/1067482396246683708?color=7289da&logo=discord&logoColor=white)](https://discord.neuralnexus.dev)
+
+[![Github Releases](https://img.shields.io/github/downloads/p0t4t0sandwich/ampapi-rs/total?label=Github&logo=github&color=181717)](https://github.com/p0t4t0sandwich/ampapi-rs/releases)
+[![Crates.io](https://img.shields.io/crates/v/ampapi)](https://crates.io/crates/ampapi)
+[![Docs.rs](https://docs.rs/ampapi/badge.svg)](https://docs.rs/ampapi)
 
 An API that allows you to communicate with AMP installations from within Rust.
 
@@ -11,9 +20,9 @@ Support:
 
 ## Installation
 
-<!-- ```bash -->
-<!-- go get github.com/p0t4t0sandwich/ampapi-rust -->
-<!-- ``` -->
+```bash
+cargo add ampapi
+```
 
 ## Examples
 
