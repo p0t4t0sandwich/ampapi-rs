@@ -19,102 +19,70 @@ Support:
 
 ### CommonAPI Example
 
-```go
-package main
+```rust
+use ampapi::modules::CommonAPI;
+use ampapi::types::Status;
 
-import (
-    "ampapi/ampapi/modules"
-)
-
-func main() {
+fn main() {
     // If you know the module that the instance is using, specify it instead of CommonAPI
-    API := modules.NewCommonAPI("http://localhost:8080/", "admin", "myfancypassword123")
+    let api = CommonAPI::new(
+        String::from("http://localhost:8080/"),
+        String::from("admin"),
+        String::from("myfancypassword123"),
+        "".to_string(),
+        "".to_string()
+    );
 
     // API call parameters are simply in the same order as shown in the documentation.
-    API.Core.SendConsoleMessage("say Hello Everyone, this message was sent from the Go API!")
+    let _ = api.Core.SendConsoleMessage("say Hello Everyone, this message was sent from the Rust API!".to_string());
 
-    currentStatus := API.Core.GetStatus()
-    CPUUsagePercent := currentStatus.Metrics["CPU Usage"].Percent
+    let current_status: Status = api.Core.GetStatus().unwrap();
+    let cpu_usage_percent: f64 = current_status.Metrics.get("CPU Usage").unwrap().get("Percent").unwrap().as_f64().unwrap();
 
-    fmt.Printf("Current CPU usage is: %v%%\n", CPUUsagePercent)
+    println!("Current CPU usage is: {}%", cpu_usage_percent);
 }
 ```
 
 ### Example using the ADS to manage an instance
 
-```go
-package main
+```rust
+use ampapi::modules::{ADS, Minecraft};
+use ampapi::types::{IADSInstance, Status};
 
-import (
-    "ampapi/ampapi"
-    "ampapi/ampapi/modules"
-    "strconv"
-)
-
-func main() {
-    API := modules.NewADS("http://localhost:8080/", "admin", "myfancypassword123")
+fn main() {
+    let api = ADS::new(
+        String::from("http://localhost:8080/"),
+        String::from("admin"),
+        String::from("myfancypassword123"),
+        "".to_string(),
+        "".to_string()
+    );
 
     // Get the available instances
-    instancesResult := API.ADSModule.GetInstances()
-
-    targets := instancesResult.Result
+    let instances_result = api.ADSModule.GetInstances().unwrap();
+    let targets: Vec<IADSInstance> = instances_result.result;
 
     // In this example, my Hub server is on the second target
-    // If you're running a standalone setup, you can just use targets[1]
-    target := targets[1]
-
-    var hub_instance_id ampapi.UUID
-
+    // If you're running a standalone setup, you can just use targets[0]
     // Get the instance ID of the Hub server
-    for _, instance := range target.AvailableInstances {
-        if instance.InstanceName == "Hub" {
-            hub_instance_id = instance.InstanceID
-            break
-        }
-    }
+    let hub_instance_id = targets[1].AvailableInstances.iter().find(|&x| x.InstanceName == "Hub").unwrap().InstanceID.clone();
 
     // Use the instance ID to get the API for the instance
-    Hub, ok := API.InstanceLogin(hub_instance_id, "Minecraft").(*modules.Minecraft)
-    if !ok {
-        panic("Failed to login to instance")
-    }
+    let hub: Minecraft = api.instance_login(hub_instance_id, "Minecraft".to_string()).unwrap().into();
 
     // Get the current CPU usage
-    currentStatus := Hub.Core.GetStatus()
-    CPUUsagePercent := currentStatus.Metrics["CPU Usage"].Percent
+    let current_status: Status = api.Core.GetStatus().unwrap();
+    let cpu_usage_percent: f64 = current_status.Metrics.get("CPU Usage").unwrap().get("Percent").unwrap().as_f64().unwrap();
 
     // Send a message to the console
-    Hub.Core.SendConsoleMessage("say Current CPU usage is: " + strconv.FormatFloat(CPUUsagePercent, 'f', 2, 64) + "%")
+    let _ = hub.Core.SendConsoleMessage(format!("say Current CPU usage is: {}%", cpu_usage_percent)).unwrap();
 }
 ```
 
 ### CommonAPI Example, handling the sessionId and rememberMeToken manually (not recommended)
 
-```go
-package main
-
-import (
-    "ampapi/ampapi/modules"
-)
-
-func main() {
-    API := modules.NewCommonAPI("http://localhost:8080/")
-
-    // The third parameter is either used for 2FA logins, or if no password is specified to use a remembered token from a previous login, or a service login token.
-    loginResult := API.Core.Login("admin", "myfancypassword123", "", false)
-
-    if loginResult.Success {
-        fmt.Println("Login successful!")
-        API.AMPAPI.SessionId = loginResult.SessionId
-
-        // API call parameters are simply in the same order as shown in the documentation.
-        API.Core.SendConsoleMessage("say Hello Everyone, this message was sent from the Go API!")
-        currentStatus := API.Core.GetStatus()
-        CPUUsagePercent := currentStatus.Metrics["CPU Usage"].Percent
-        fmt.Printf("Current CPU usage is: %v%%\n", CPUUsagePercent)
-    } else {
-        fmt.Println("Login failed!")
-        fmt.Println(loginResult)
-    }
+```rust
+fn main() {
+    // Under implementation
 }
 ```

@@ -2,6 +2,13 @@
 name = "ampapi"
 version = "0.1.0"
 edition = "2021"
+license = "GPL-3.0, MIT"
+description = "An API that allows you to communicate with AMP installations from within Rust"
+homepage = "https://github.com/p0t4t0sandwich/ampapi-rust#readme"
+repository = "https://github.com/p0t4t0sandwich/ampapi-rust"
+readme = "https://github.com/p0t4t0sandwich/ampapi-rust/blob/main/README.md"
+keywords = ["amp", "api", "rust"]
+categories = ["api-clients"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

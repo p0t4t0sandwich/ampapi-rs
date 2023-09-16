@@ -3,15 +3,19 @@
 use std::collections::HashMap;
 
 use serde::de;
-use serde::{Deserialize, Serialize};
+
+use serde_json::Value;
+
 use reqwest::blocking;
 
 mod types;
-use serde_json::Value;
-use types::types::LoginResult;
+use crate::types::LoginResult;
+
+mod modules;
+
 
 /// AMPAPI - Struct for interacting with the AMP API
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Debug, Clone)]
 pub struct AMPAPI {
     /// base_uri - The base URI of the AMP instance
     pub base_uri: String,
@@ -29,7 +33,7 @@ pub struct AMPAPI {
 
 /// AMPAPI methods
 impl AMPAPI {
-    /// new - Create a new AMPAPI struct
+    /// AMPAPI.new - Create a new AMPAPI struct
     /// * `base_uri` - The base URI of the AMP instance
     /// * `username` - The username to use for authentication
     /// * `password` - The password to use for authentication
@@ -46,7 +50,7 @@ impl AMPAPI {
         }
 
         AMPAPI {
-            base_uri,
+            base_uri: new_base_uri.clone(),
             data_source: new_base_uri + "API/",
             username,
             password,
@@ -59,7 +63,7 @@ impl AMPAPI {
     /// * `endpoint` - The endpoint to call
     /// * `args` - A map of arguments to pass to the endpoint
     /// Returns Result<T, reqwest::Error>
-    pub fn api_call<T: de::DeserializeOwned>(&self, endpoint: String, args: HashMap<String, Value>) -> Result<T, reqwest::Error> {
+    pub fn api_call<T: de::DeserializeOwned>(&self, endpoint: String, args: HashMap<String, Value>) -> core::result::Result<T, reqwest::Error> {
         let mut map: HashMap<String, Value> = HashMap::new();
         map.insert("SESSIONID".to_string(), Value::String(self.session_id.to_string()));
         for (key, value) in args.iter() {
@@ -80,7 +84,7 @@ impl AMPAPI {
 
     /// AMPAPI.login - Simplified login function
     /// Returns Result<LoginResult, reqwest::Error>
-    pub fn login(&self) -> Result<LoginResult, reqwest::Error> {
+    pub fn login(&self) -> core::result::Result<LoginResult, reqwest::Error> {
         let mut args = HashMap::new();
         args.insert("username".to_string(), Value::String(self.username.clone()));
         args.insert("password".to_string(), Value::String(self.password.clone()));

@@ -1,21 +1,25 @@
-package apimodules
+use crate::{AMPAPI, types::*};
 
-// A Go library for the AMP API
-// Author: p0t4t0sandich
+use std::collections::HashMap;
 
-import (
-	"ampapi/ampapi"
-	"encoding/json"
-)
+#[allow(unused_imports)]
+use serde_json::{Value, Map};
 
-// struct %MODULE_NAME%
-type %MODULE_NAME% struct {
-    *ampapi.AMPAPI
+/// A Rust library for the AMP API
+/// Author: p0t4t0sandich
+
+/// struct %MODULE_NAME%
+#[derive(Debug, Clone)]
+pub struct %MODULE_NAME% {
+    pub ampapi: AMPAPI
 }
 
-// Function New%MODULE_NAME%
-// Creates a new %MODULE_NAME% object
-func New%MODULE_NAME%(api *ampapi.AMPAPI) *%MODULE_NAME% {
-	return &%MODULE_NAME%{api}
-}
+#[allow(non_snake_case, dead_code, unused_mut)]
+impl %MODULE_NAME% {
+	///new - Creates a new %MODULE_NAME% object
+	pub fn new(ampapi: AMPAPI) -> %MODULE_NAME% {
+		%MODULE_NAME% {
+			ampapi
+		}
+	}
 

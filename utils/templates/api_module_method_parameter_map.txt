@@ -1,1 +1,1 @@
-    args["%METHOD_PARAMETER_NAME%"] = %METHOD_PARAMETER_NAME%
+        args.insert("%METHOD_PARAMETER_NAME%".to_string(), %METHOD_PARAMETER_NAME%.into());

@@ -8,9 +8,9 @@ import json
 
 
 type_dict = {
-    "InstanceDatastore": "InstanceDatastore",
-    "ActionResult": "ActionResult<any>",
-    "Int32": "int32",
+    "InstanceDatastore": "Value",
+    "ActionResult": "ActionResult<Value>",
+    "Int32": "i32",
     "IEnumerable<InstanceDatastore>": "Result<Vec<InstanceDatastore>>",
     "RunningTask": "Result<RunningTask>",
     "Task<RunningTask>": "Task<RunningTask>",
@@ -22,7 +22,7 @@ type_dict = {
     "Boolean": "bool",
     "List<String>": "Vec<String>",
     "PostCreateActions": "Value",
-    "Dictionary<String, String>": "HashMap<String, String>", 
+    "Dictionary<String, String>": "Map<String, Value>", 
     "RemoteTargetInfo": "RemoteTargetInfo",
     "IEnumerable<ApplicationSpec>": "Result<Vec<Value>>",
     "Void": "Value",
@@ -34,11 +34,11 @@ type_dict = {
     "IADSInstance": "Result<IADSInstance>",
     "Uri": "URL",
     "IEnumerable<PortUsage>": "Result<Vec<Value>>",
-    "Dictionary<String, Int32>": "HashMap<String, int32>",
+    "Dictionary<String, Int32>": "Map<String, Value>",
     "LocalAMPInstance": "Value",
     "ContainerMemoryPolicy": "Value",
     "Single": "Value",
-    "Int64": "int64",
+    "Int64": "i64",
     "FileChunkData": "Value",
     "IEnumerable<BackupManifest>": "Result<Vec<Value>>",
     "Nullable<DateTime>": "Option<Value>", # Optional?
@@ -49,7 +49,7 @@ type_dict = {
     "String[]": "Vec<String>",
     "Nullable<Boolean>": "Option<bool>", # Optional?
     "ScheduleInfo": "Value",
-    "Int32[]": "Vec<int32>",
+    "Int32[]": "Vec<i32>",
     "TimeIntervalTrigger": "Value",
     "IEnumerable<WebSessionSummary>": "Result<Vec<Value>>",
     "IList<IPermissionsTreeNode>": "Vec<Value>",
@@ -57,7 +57,7 @@ type_dict = {
     "IEnumerable<WebauthnCredentialSummary>": "Result<Vec<Value>>",
     "IEnumerable<RunningTask>": "Result<Vec<RunningTask>>",
     "ModuleInfo": "Result<ModuleInfo>",
-    "Dictionary<String, Dictionary<String, MethodInfoSummary>>": "HashMap<String, HashMap<String, Value>>>",
+    "Dictionary<String, Dictionary<String, MethodInfoSummary>>": "HashMap<String, HashMap<String, Value>>",
     "Object": "Value",
     "UpdateInfo": "Result<UpdateInfo>",
     "IEnumerable<ListeningPortSummary>": "Result<Vec<Value>>",
@@ -71,7 +71,7 @@ type_dict = {
     "Task<AuthRoleSummary>": "Task<Value>",
     "Task<IEnumerable<AuthRoleSummary>>": "Task<Vec<Value>>",
     "Task<IDictionary<Guid, String>>": "Task<HashMap<UUID, Value>>",
-    "Task<ActionResult>": "Task<ActionResult>",
+    "Task<ActionResult>": "Task<ActionResult<Value>>",
     "Task<ActionResult<Guid>>": "Task<ActionResult<UUID>>",
 
     ## Custom types
@@ -112,7 +112,7 @@ def generate_apimodule_method(module: str, method: str, method_spec: dict):
     # Get the method description
     description = ""
     if "Description" in method_spec.keys():
-        description = "\n     * " + method_spec["Description"]
+        description = method_spec["Description"]
 
     # Get the method parameters
     parameters_docs = ""
@@ -159,7 +159,7 @@ def generate_apimodule_method(module: str, method: str, method_spec: dict):
 
         # Print out the type if it hasn't been added to the type_dict
         if not type_name in type_dict.keys(): print(type_name)
-        parameters += f"{name} {type_dict[type_name]}, "
+        parameters += f"{name}: {type_dict[type_name]}, "
 
     parameters = parameters[:-2]
 
@@ -197,13 +197,21 @@ def generate_apimodule(module: str, methods: dict):
         api_module_template = tf.read()
         tf.close()
 
+    # Exception for Rust -> make module snake_case
+    def snake_case(name: str) -> str:
+        if name == "ADSModule": return "ads_module"
+        elif name == "RCONPlugin": return "rcon_plugin"
+        elif name == "steamcmdplugin": return "steamcmd_plugin"
+        return ''.join(['_'+i.lower() if i.isupper() else i for i in name]).lstrip('_')
+
     # Create a new file called f{module}.java
-    f = open(f"../ampapi/src/apimodules/{module}.rs","w+")
+    f = open(f"../ampapi/src/modules/{snake_case(module)}.rs","w+")
     f.write(api_module_template.replace("%MODULE_NAME%", module))
 
     for method in methods.keys():
         f.write(generate_apimodule_method(module, method, methods[method]))
 
+    f.write("}\n")
     f.close()
 
 def generate_spec(spec: dict):

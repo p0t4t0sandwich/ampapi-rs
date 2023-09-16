@@ -1,0 +1,112 @@
+use crate::{AMPAPI, types::*};
+
+use std::collections::HashMap;
+
+#[allow(unused_imports)]
+use serde_json::{Value, Map};
+
+/// A Rust library for the AMP API
+/// Author: p0t4t0sandich
+
+/// struct LocalFileBackupPlugin
+#[derive(Debug, Clone)]
+pub struct LocalFileBackupPlugin {
+    pub ampapi: AMPAPI
+}
+
+#[allow(non_snake_case, dead_code, unused_mut)]
+impl LocalFileBackupPlugin {
+	///new - Creates a new LocalFileBackupPlugin object
+	pub fn new(ampapi: AMPAPI) -> LocalFileBackupPlugin {
+		LocalFileBackupPlugin {
+			ampapi
+		}
+	}
+
+    /// DeleteFromS3 - 
+    /// Name Description Optional
+    /// * `param` BackupId UUID  False
+    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
+    pub fn DeleteFromS3(&self, BackupId: UUID) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("BackupId".to_string(), BackupId.into());
+        self.ampapi.api_call::<Task<ActionResult<Value>>>("LocalFileBackupPlugin/DeleteFromS3".to_string(), args)
+    }
+
+    /// DeleteLocalBackup - 
+    /// Name Description Optional
+    /// * `param` BackupId UUID  False
+    /// Return core::result::Result<Value, reqwest::Error>
+    pub fn DeleteLocalBackup(&self, BackupId: UUID) -> core::result::Result<Value, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("BackupId".to_string(), BackupId.into());
+        self.ampapi.api_call::<Value>("LocalFileBackupPlugin/DeleteLocalBackup".to_string(), args)
+    }
+
+    /// DownloadFromS3 - 
+    /// Name Description Optional
+    /// * `param` BackupId UUID  False
+    /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
+    pub fn DownloadFromS3(&self, BackupId: UUID) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("BackupId".to_string(), BackupId.into());
+        self.ampapi.api_call::<Result<RunningTask>>("LocalFileBackupPlugin/DownloadFromS3".to_string(), args)
+    }
+
+    /// GetBackups - 
+    /// Name Description Optional
+    /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
+    pub fn GetBackups(&self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        self.ampapi.api_call::<Result<Vec<Value>>>("LocalFileBackupPlugin/GetBackups".to_string(), args)
+    }
+
+    /// RestoreBackup - 
+    /// Name Description Optional
+    /// * `param` BackupId UUID  False
+    /// * `param` DeleteExistingData bool  True
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn RestoreBackup(&self, BackupId: UUID, DeleteExistingData: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("BackupId".to_string(), BackupId.into());
+        args.insert("DeleteExistingData".to_string(), DeleteExistingData.into());
+        self.ampapi.api_call::<ActionResult<Value>>("LocalFileBackupPlugin/RestoreBackup".to_string(), args)
+    }
+
+    /// SetBackupSticky - 
+    /// Name Description Optional
+    /// * `param` BackupId UUID  False
+    /// * `param` Sticky bool  False
+    /// Return core::result::Result<Value, reqwest::Error>
+    pub fn SetBackupSticky(&self, BackupId: UUID, Sticky: bool) -> core::result::Result<Value, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("BackupId".to_string(), BackupId.into());
+        args.insert("Sticky".to_string(), Sticky.into());
+        self.ampapi.api_call::<Value>("LocalFileBackupPlugin/SetBackupSticky".to_string(), args)
+    }
+
+    /// TakeBackup - 
+    /// Name Description Optional
+    /// * `param` Title String  False
+    /// * `param` Description String  False
+    /// * `param` Sticky bool  False
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn TakeBackup(&self, Title: String, Description: String, Sticky: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("Title".to_string(), Title.into());
+        args.insert("Description".to_string(), Description.into());
+        args.insert("Sticky".to_string(), Sticky.into());
+        self.ampapi.api_call::<ActionResult<Value>>("LocalFileBackupPlugin/TakeBackup".to_string(), args)
+    }
+
+    /// UploadToS3 - 
+    /// Name Description Optional
+    /// * `param` BackupId UUID  False
+    /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
+    pub fn UploadToS3(&self, BackupId: UUID) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("BackupId".to_string(), BackupId.into());
+        self.ampapi.api_call::<Result<RunningTask>>("LocalFileBackupPlugin/UploadToS3".to_string(), args)
+    }
+
+}
