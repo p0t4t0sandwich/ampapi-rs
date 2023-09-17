@@ -28,7 +28,7 @@ use steamcmd_plugin::steamcmdplugin;
 
 
 /// struct CommonAPI
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[derive(Debug, Clone)]
 #[allow(non_snake_case, dead_code)]
 pub struct CommonAPI {
@@ -40,7 +40,7 @@ pub struct CommonAPI {
 }
 
 /// impl From<Module> for CommonAPI
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 impl From<Module> for CommonAPI {
     fn from(module: Module) -> Self {
         match module {
@@ -51,11 +51,13 @@ impl From<Module> for CommonAPI {
 }
 
 /// impl CommonAPI
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[allow(non_snake_case, dead_code)]
 impl CommonAPI {
+    //noinspection DuplicatedCode
+    //noinspection DuplicatedCode
     /// CommonAPI.new - Create a new CommonAPI struct
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// * `base_uri` - The base URI of the AMP instance
     /// * `username` - The username to use for authentication
     /// * `password` - The password to use for authentication
@@ -86,9 +88,9 @@ impl CommonAPI {
     }
 
     /// CommonAPI.login - Simplified login function
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// Returns Result<LoginResult, reqwest::Error>
-    pub fn login(&mut self) -> Result<crate::types::LoginResult, reqwest::Error> {
+    pub fn login(&mut self) -> Result<LoginResult, reqwest::Error> {
         let login_result = self.ampapi.login().unwrap();
 
         if login_result.success {
@@ -111,7 +113,7 @@ impl CommonAPI {
 }
 
 /// struct GenericModule
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[derive(Debug, Clone)]
 #[allow(non_snake_case, dead_code)]
 pub struct GenericModule {
@@ -125,7 +127,7 @@ pub struct GenericModule {
 }
 
 /// impl From<Module> for GenericModule
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 impl From<Module> for GenericModule {
     fn from(module: Module) -> Self {
         match module {
@@ -136,11 +138,12 @@ impl From<Module> for GenericModule {
 }
 
 /// impl GenericModule
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[allow(non_snake_case, dead_code)]
 impl GenericModule {
+    //noinspection DuplicatedCode
     /// GenericModule.new - Create a new GenericModule struct
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// * `base_uri` - The base URI of the AMP instance
     /// * `username` - The username to use for authentication
     /// * `password` - The password to use for authentication
@@ -173,9 +176,9 @@ impl GenericModule {
     }
 
     /// GenericModule.login - Simplified login function
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// Returns Result<LoginResult, reqwest::Error>
-    pub fn login(&mut self) -> Result<crate::types::LoginResult, reqwest::Error> {
+    pub fn login(&mut self) -> Result<LoginResult, reqwest::Error> {
         let login_result = self.ampapi.login().unwrap();
 
         if login_result.success {
@@ -202,7 +205,7 @@ impl GenericModule {
 }
 
 /// struct Minecraft
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[derive(Debug, Clone)]
 #[allow(non_snake_case, dead_code)]
 pub struct Minecraft {
@@ -215,7 +218,7 @@ pub struct Minecraft {
 }
 
 /// impl From<Module> for Minecraft
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 impl From<Module> for Minecraft {
     fn from(module: Module) -> Self {
         match module {
@@ -226,11 +229,12 @@ impl From<Module> for Minecraft {
 }
 
 /// impl MinecraftModule
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[allow(non_snake_case, dead_code)]
 impl Minecraft {
+    //noinspection DuplicatedCode
     /// Minecraft.new - Create a new Minecraft struct
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// * `base_uri` - The base URI of the AMP instance
     /// * `username` - The username to use for authentication
     /// * `password` - The password to use for authentication
@@ -262,9 +266,9 @@ impl Minecraft {
     }
 
     /// Minecraft.login - Simplified login function
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// Returns Result<LoginResult, reqwest::Error>
-    pub fn login(&mut self) -> Result<crate::types::LoginResult, reqwest::Error> {
+    pub fn login(&mut self) -> Result<LoginResult, reqwest::Error> {
         let login_result = self.ampapi.login().unwrap();
 
         if login_result.success {
@@ -289,7 +293,7 @@ impl Minecraft {
 }
 
 /// struct ADS
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[derive(Debug, Clone)]
 #[allow(non_snake_case, dead_code)]
 pub struct ADS {
@@ -302,7 +306,7 @@ pub struct ADS {
 }
 
 /// impl From<Module> for ADS
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 impl From<Module> for ADS {
     fn from(module: Module) -> Self {
         match module {
@@ -313,7 +317,7 @@ impl From<Module> for ADS {
 }
 
 /// enum Module
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[derive(Debug, Clone)]
 pub enum Module {
     ADS(ADS),
@@ -323,11 +327,13 @@ pub enum Module {
 }
 
 /// impl ADS
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 #[allow(non_snake_case, dead_code)]
 impl ADS {
+    //noinspection ALL
+    //noinspection DuplicatedCode
     /// ADS.new - Create a new ADS struct
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// * `base_uri` - The base URI of the AMP instance
     /// * `username` - The username to use for authentication
     /// * `password` - The password to use for authentication
@@ -359,9 +365,9 @@ impl ADS {
     }
 
     /// ADS.login - Simplified login function
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// Returns Result<LoginResult, reqwest::Error>
-    pub fn login(&mut self) -> Result<crate::types::LoginResult, reqwest::Error> {
+    pub fn login(&mut self) -> Result<LoginResult, reqwest::Error> {
         let login_result = self.ampapi.login().unwrap();
 
         if login_result.success {
@@ -385,7 +391,7 @@ impl ADS {
     }
 
     /// ADS.instance_login - Function to proxy a login to an instance
-    /// Author: p0t4t0sandich
+    /// Author: p0t4t0sandwich
     /// * `instance_id` - The instance ID to login to
     /// * `module` - The type of module you're logging into
     /// Returns Result<T, reqwest::Error>

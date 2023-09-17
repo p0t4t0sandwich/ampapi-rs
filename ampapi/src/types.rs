@@ -5,7 +5,7 @@ use serde_json::{Map, Value};
 use serde_repr::{Serialize_repr, Deserialize_repr};
 
 /// A Rust library for the AMP API
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 
 /// ActionResult - Generic response type for calls that return a result and a reason for failure
 /// Author: p0t4t0sandwich
@@ -274,6 +274,7 @@ pub struct Message {
 pub mod option_string_serde {
     use serde::{Deserialize, Deserializer, Serializer};
 
+    //noinspection RsUnnecessaryQualifications
     /// serialize - Serialize a string
     /// Author: p0t4t0sandwich
     /// * `string` - The string to serialize
@@ -289,6 +290,7 @@ pub mod option_string_serde {
         }
     }
 
+    //noinspection RsUnnecessaryQualifications
     /// deserialize - Deserialize a string
     /// Returns Result<Option<String>, serde::de::Error>
     pub fn deserialize<'de, D>(deserializer: D) -> core::result::Result<Option<String>, D::Error>

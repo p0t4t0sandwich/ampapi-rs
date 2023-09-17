@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use crate::{AMPAPI, types::*};
 
 use std::collections::HashMap;
@@ -6,10 +7,11 @@ use std::collections::HashMap;
 use serde_json::{Value, Map};
 
 /// A Rust library for the AMP API
-/// Author: p0t4t0sandich
+/// Author: p0t4t0sandwich
 
 /// struct steamcmdplugin
 #[derive(Debug, Clone)]
+#[allow(non_camel_case_types)]
 pub struct steamcmdplugin {
     pub ampapi: AMPAPI
 }
