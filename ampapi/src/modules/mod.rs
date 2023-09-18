@@ -395,7 +395,7 @@ impl ADS {
     /// * `instance_id` - The instance ID to login to
     /// * `module` - The type of module you're logging into
     /// Returns Result<T, reqwest::Error>
-    pub fn instance_login(&self, instance_id: String, module: String) -> Result<Module, Error> {
+    pub fn instance_login(&mut self, instance_id: String, module: String) -> Result<Module, Error> {
         let mut args = HashMap::new();
         args.insert("username".to_string(), Value::String(self.ampapi.username.clone()));
         args.insert("password".to_string(), Value::String(self.ampapi.password.clone()));

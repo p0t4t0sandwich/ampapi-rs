@@ -1,9 +1,8 @@
-#[allow(unused_imports)]
+#![allow(dead_code, non_camel_case_types, non_snake_case, unused_imports, unused_mut)]
 use crate::{AMPAPI, types::*};
 
 use std::collections::HashMap;
 
-#[allow(unused_imports)]
 use serde_json::{Value, Map};
 
 /// A Rust library for the AMP API
@@ -15,7 +14,6 @@ pub struct RCONPlugin {
     pub ampapi: AMPAPI
 }
 
-#[allow(non_snake_case, dead_code, unused_mut)]
 impl RCONPlugin {
 	///new - Creates a new RCONPlugin object
 	pub fn new(ampapi: AMPAPI) -> RCONPlugin {
@@ -27,7 +25,7 @@ impl RCONPlugin {
     /// Dummy - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn Dummy(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn Dummy(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("RCONPlugin/Dummy".to_string(), args)
     }

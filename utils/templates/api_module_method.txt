@@ -1,7 +1,7 @@
     /// %METHOD_NAME% - %METHOD_DESCRIPTION%
     /// Name Description Optional%METHOD_PARAMETER_DOC%
     /// Return core::result::Result<%METHOD_RETURN_TYPE%, reqwest::Error>
-    pub fn %METHOD_NAME%(&self, %METHOD_PARAMETERS%) -> core::result::Result<%METHOD_RETURN_TYPE%, reqwest::Error> {
+    pub fn %METHOD_NAME%(&mut self, %METHOD_PARAMETERS%) -> core::result::Result<%METHOD_RETURN_TYPE%, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();%METHOD_PARAMETER_MAP%
         self.ampapi.api_call::<%METHOD_RETURN_TYPE%>("%MODULE_NAME%/%METHOD_NAME%".to_string(), args)
     }

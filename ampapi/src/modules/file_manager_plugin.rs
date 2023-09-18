@@ -1,9 +1,8 @@
-#[allow(unused_imports)]
+#![allow(dead_code, non_camel_case_types, non_snake_case, unused_imports, unused_mut)]
 use crate::{AMPAPI, types::*};
 
 use std::collections::HashMap;
 
-#[allow(unused_imports)]
 use serde_json::{Value, Map};
 
 /// A Rust library for the AMP API
@@ -15,7 +14,6 @@ pub struct FileManagerPlugin {
     pub ampapi: AMPAPI
 }
 
-#[allow(non_snake_case, dead_code, unused_mut)]
 impl FileManagerPlugin {
 	///new - Creates a new FileManagerPlugin object
 	pub fn new(ampapi: AMPAPI) -> FileManagerPlugin {
@@ -30,7 +28,7 @@ impl FileManagerPlugin {
     /// * `param` Data String  False
     /// * `param` Delete bool  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn AppendFileChunk(&self, Filename: String, Data: String, Delete: bool) -> core::result::Result<Value, reqwest::Error> {
+    pub fn AppendFileChunk(&mut self, Filename: String, Data: String, Delete: bool) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Filename".to_string(), Filename.into());
         args.insert("Data".to_string(), Data.into());
@@ -42,7 +40,7 @@ impl FileManagerPlugin {
     /// Name Description Optional
     /// * `param` FilePath String  False
     /// Return core::result::Result<ActionResult<String>, reqwest::Error>
-    pub fn CalculateFileMD5Sum(&self, FilePath: String) -> core::result::Result<ActionResult<String>, reqwest::Error> {
+    pub fn CalculateFileMD5Sum(&mut self, FilePath: String) -> core::result::Result<ActionResult<String>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("FilePath".to_string(), FilePath.into());
         self.ampapi.api_call::<ActionResult<String>>("FileManagerPlugin/CalculateFileMD5Sum".to_string(), args)
@@ -54,7 +52,7 @@ impl FileManagerPlugin {
     /// * `param` AsDirectory bool  False
     /// * `param` Exclude bool  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn ChangeExclusion(&self, ModifyPath: String, AsDirectory: bool, Exclude: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn ChangeExclusion(&mut self, ModifyPath: String, AsDirectory: bool, Exclude: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ModifyPath".to_string(), ModifyPath.into());
         args.insert("AsDirectory".to_string(), AsDirectory.into());
@@ -67,7 +65,7 @@ impl FileManagerPlugin {
     /// * `param` Origin String  False
     /// * `param` TargetDirectory String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn CopyFile(&self, Origin: String, TargetDirectory: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn CopyFile(&mut self, Origin: String, TargetDirectory: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Origin".to_string(), Origin.into());
         args.insert("TargetDirectory".to_string(), TargetDirectory.into());
@@ -78,7 +76,7 @@ impl FileManagerPlugin {
     /// Name Description Optional
     /// * `param` PathToArchive String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn CreateArchive(&self, PathToArchive: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn CreateArchive(&mut self, PathToArchive: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("PathToArchive".to_string(), PathToArchive.into());
         self.ampapi.api_call::<ActionResult<Value>>("FileManagerPlugin/CreateArchive".to_string(), args)
@@ -88,7 +86,7 @@ impl FileManagerPlugin {
     /// Name Description Optional
     /// * `param` NewPath String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn CreateDirectory(&self, NewPath: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn CreateDirectory(&mut self, NewPath: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("NewPath".to_string(), NewPath.into());
         self.ampapi.api_call::<ActionResult<Value>>("FileManagerPlugin/CreateDirectory".to_string(), args)
@@ -99,7 +97,7 @@ impl FileManagerPlugin {
     /// * `param` Source URL  False
     /// * `param` TargetDirectory String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn DownloadFileFromURL(&self, Source: URL, TargetDirectory: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn DownloadFileFromURL(&mut self, Source: URL, TargetDirectory: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Source".to_string(), Source.into());
         args.insert("TargetDirectory".to_string(), TargetDirectory.into());
@@ -109,7 +107,7 @@ impl FileManagerPlugin {
     /// Dummy - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn Dummy(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn Dummy(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("FileManagerPlugin/Dummy".to_string(), args)
     }
@@ -118,7 +116,7 @@ impl FileManagerPlugin {
     /// Name Description Optional
     /// * `param` TrashDirectoryName String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn EmptyTrash(&self, TrashDirectoryName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn EmptyTrash(&mut self, TrashDirectoryName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("TrashDirectoryName".to_string(), TrashDirectoryName.into());
         self.ampapi.api_call::<ActionResult<Value>>("FileManagerPlugin/EmptyTrash".to_string(), args)
@@ -129,7 +127,7 @@ impl FileManagerPlugin {
     /// * `param` ArchivePath String  False
     /// * `param` DestinationPath String  True
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn ExtractArchive(&self, ArchivePath: String, DestinationPath: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn ExtractArchive(&mut self, ArchivePath: String, DestinationPath: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ArchivePath".to_string(), ArchivePath.into());
         args.insert("DestinationPath".to_string(), DestinationPath.into());
@@ -140,7 +138,7 @@ impl FileManagerPlugin {
     /// Name Description Optional
     /// * `param` Dir String  False
     /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetDirectoryListing(&self, Dir: String) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    pub fn GetDirectoryListing(&mut self, Dir: String) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Dir".to_string(), Dir.into());
         self.ampapi.api_call::<Result<HashMap<String, Value>>>("FileManagerPlugin/GetDirectoryListing".to_string(), args)
@@ -152,7 +150,7 @@ impl FileManagerPlugin {
     /// * `param` Position i64  False
     /// * `param` Length i32  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn GetFileChunk(&self, Filename: String, Position: i64, Length: i32) -> core::result::Result<Value, reqwest::Error> {
+    pub fn GetFileChunk(&mut self, Filename: String, Position: i64, Length: i32) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Filename".to_string(), Filename.into());
         args.insert("Position".to_string(), Position.into());
@@ -166,7 +164,7 @@ impl FileManagerPlugin {
     /// * `param` Offset i64  False
     /// * `param` ChunkSize i64  True
     /// Return core::result::Result<ActionResult<String>, reqwest::Error>
-    pub fn ReadFileChunk(&self, Filename: String, Offset: i64, ChunkSize: i64) -> core::result::Result<ActionResult<String>, reqwest::Error> {
+    pub fn ReadFileChunk(&mut self, Filename: String, Offset: i64, ChunkSize: i64) -> core::result::Result<ActionResult<String>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Filename".to_string(), Filename.into());
         args.insert("Offset".to_string(), Offset.into());
@@ -179,7 +177,7 @@ impl FileManagerPlugin {
     /// * `param` oldDirectory String The full path to the old directory False
     /// * `param` NewDirectoryName String The name component of the new directory (not the full path) False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn RenameDirectory(&self, oldDirectory: String, NewDirectoryName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn RenameDirectory(&mut self, oldDirectory: String, NewDirectoryName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("oldDirectory".to_string(), oldDirectory.into());
         args.insert("NewDirectoryName".to_string(), NewDirectoryName.into());
@@ -191,7 +189,7 @@ impl FileManagerPlugin {
     /// * `param` Filename String  False
     /// * `param` NewFilename String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn RenameFile(&self, Filename: String, NewFilename: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn RenameFile(&mut self, Filename: String, NewFilename: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Filename".to_string(), Filename.into());
         args.insert("NewFilename".to_string(), NewFilename.into());
@@ -202,7 +200,7 @@ impl FileManagerPlugin {
     /// Name Description Optional
     /// * `param` DirectoryName String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn TrashDirectory(&self, DirectoryName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn TrashDirectory(&mut self, DirectoryName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("DirectoryName".to_string(), DirectoryName.into());
         self.ampapi.api_call::<ActionResult<Value>>("FileManagerPlugin/TrashDirectory".to_string(), args)
@@ -212,7 +210,7 @@ impl FileManagerPlugin {
     /// Name Description Optional
     /// * `param` Filename String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn TrashFile(&self, Filename: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn TrashFile(&mut self, Filename: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Filename".to_string(), Filename.into());
         self.ampapi.api_call::<ActionResult<Value>>("FileManagerPlugin/TrashFile".to_string(), args)
@@ -225,7 +223,7 @@ impl FileManagerPlugin {
     /// * `param` Offset i64  False
     /// * `param` FinalChunk bool  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn WriteFileChunk(&self, Filename: String, Data: String, Offset: i64, FinalChunk: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn WriteFileChunk(&mut self, Filename: String, Data: String, Offset: i64, FinalChunk: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Filename".to_string(), Filename.into());
         args.insert("Data".to_string(), Data.into());

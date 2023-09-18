@@ -1,9 +1,8 @@
-#[allow(unused_imports)]
+#![allow(dead_code, non_camel_case_types, non_snake_case, unused_imports, unused_mut)]
 use crate::{AMPAPI, types::*};
 
 use std::collections::HashMap;
 
-#[allow(unused_imports)]
 use serde_json::{Value, Map};
 
 /// A Rust library for the AMP API
@@ -15,7 +14,6 @@ pub struct MinecraftModule {
     pub ampapi: AMPAPI
 }
 
-#[allow(non_snake_case, dead_code, unused_mut)]
 impl MinecraftModule {
 	///new - Creates a new MinecraftModule object
 	pub fn new(ampapi: AMPAPI) -> MinecraftModule {
@@ -27,7 +25,7 @@ impl MinecraftModule {
     /// AcceptEULA - 
     /// Name Description Optional
     /// Return core::result::Result<bool, reqwest::Error>
-    pub fn AcceptEULA(&self, ) -> core::result::Result<bool, reqwest::Error> {
+    pub fn AcceptEULA(&mut self, ) -> core::result::Result<bool, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<bool>("MinecraftModule/AcceptEULA".to_string(), args)
     }
@@ -36,7 +34,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` UserOrUUID String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn AddOPEntry(&self, UserOrUUID: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn AddOPEntry(&mut self, UserOrUUID: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("UserOrUUID".to_string(), UserOrUUID.into());
         self.ampapi.api_call::<Task<ActionResult<Value>>>("MinecraftModule/AddOPEntry".to_string(), args)
@@ -46,7 +44,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` UserOrUUID String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn AddToWhitelist(&self, UserOrUUID: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn AddToWhitelist(&mut self, UserOrUUID: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("UserOrUUID".to_string(), UserOrUUID.into());
         self.ampapi.api_call::<Task<ActionResult<Value>>>("MinecraftModule/AddToWhitelist".to_string(), args)
@@ -56,7 +54,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` ID String  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BanUserByID(&self, ID: String) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BanUserByID(&mut self, ID: String) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ID".to_string(), ID.into());
         self.ampapi.api_call::<Value>("MinecraftModule/BanUserByID".to_string(), args)
@@ -65,7 +63,7 @@ impl MinecraftModule {
     /// BukGetCategories - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BukGetCategories(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BukGetCategories(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("MinecraftModule/BukGetCategories".to_string(), args)
     }
@@ -74,7 +72,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` pluginId i32  False
     /// Return core::result::Result<Task<RunningTask>, reqwest::Error>
-    pub fn BukGetInstallUpdatePlugin(&self, pluginId: i32) -> core::result::Result<Task<RunningTask>, reqwest::Error> {
+    pub fn BukGetInstallUpdatePlugin(&mut self, pluginId: i32) -> core::result::Result<Task<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("pluginId".to_string(), pluginId.into());
         self.ampapi.api_call::<Task<RunningTask>>("MinecraftModule/BukGetInstallUpdatePlugin".to_string(), args)
@@ -83,7 +81,7 @@ impl MinecraftModule {
     /// BukGetInstalledPlugins - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BukGetInstalledPlugins(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BukGetInstalledPlugins(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("MinecraftModule/BukGetInstalledPlugins".to_string(), args)
     }
@@ -92,7 +90,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` PluginId i32  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BukGetPluginInfo(&self, PluginId: i32) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BukGetPluginInfo(&mut self, PluginId: i32) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("PluginId".to_string(), PluginId.into());
         self.ampapi.api_call::<Value>("MinecraftModule/BukGetPluginInfo".to_string(), args)
@@ -104,7 +102,7 @@ impl MinecraftModule {
     /// * `param` PageNumber i32  False
     /// * `param` PageSize i32  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BukGetPluginsForCategory(&self, CategoryId: String, PageNumber: i32, PageSize: i32) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BukGetPluginsForCategory(&mut self, CategoryId: String, PageNumber: i32, PageSize: i32) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("CategoryId".to_string(), CategoryId.into());
         args.insert("PageNumber".to_string(), PageNumber.into());
@@ -115,7 +113,7 @@ impl MinecraftModule {
     /// BukGetPopularPlugins - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BukGetPopularPlugins(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BukGetPopularPlugins(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("MinecraftModule/BukGetPopularPlugins".to_string(), args)
     }
@@ -124,7 +122,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` PluginId i32  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BukGetRemovePlugin(&self, PluginId: i32) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BukGetRemovePlugin(&mut self, PluginId: i32) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("PluginId".to_string(), PluginId.into());
         self.ampapi.api_call::<Value>("MinecraftModule/BukGetRemovePlugin".to_string(), args)
@@ -136,7 +134,7 @@ impl MinecraftModule {
     /// * `param` PageNumber i32  False
     /// * `param` PageSize i32  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn BukGetSearch(&self, Query: String, PageNumber: i32, PageSize: i32) -> core::result::Result<Value, reqwest::Error> {
+    pub fn BukGetSearch(&mut self, Query: String, PageNumber: i32, PageSize: i32) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Query".to_string(), Query.into());
         args.insert("PageNumber".to_string(), PageNumber.into());
@@ -148,7 +146,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` ID String  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn ClearInventoryByID(&self, ID: String) -> core::result::Result<Value, reqwest::Error> {
+    pub fn ClearInventoryByID(&mut self, ID: String) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ID".to_string(), ID.into());
         self.ampapi.api_call::<Value>("MinecraftModule/ClearInventoryByID".to_string(), args)
@@ -157,7 +155,7 @@ impl MinecraftModule {
     /// GetFailureReason - 
     /// Name Description Optional
     /// Return core::result::Result<String, reqwest::Error>
-    pub fn GetFailureReason(&self, ) -> core::result::Result<String, reqwest::Error> {
+    pub fn GetFailureReason(&mut self, ) -> core::result::Result<String, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<String>("MinecraftModule/GetFailureReason".to_string(), args)
     }
@@ -166,7 +164,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` id String  False
     /// Return core::result::Result<String, reqwest::Error>
-    pub fn GetHeadByUUID(&self, id: String) -> core::result::Result<String, reqwest::Error> {
+    pub fn GetHeadByUUID(&mut self, id: String) -> core::result::Result<String, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("id".to_string(), id.into());
         self.ampapi.api_call::<String>("MinecraftModule/GetHeadByUUID".to_string(), args)
@@ -175,7 +173,7 @@ impl MinecraftModule {
     /// GetOPWhitelist - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn GetOPWhitelist(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn GetOPWhitelist(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("MinecraftModule/GetOPWhitelist".to_string(), args)
     }
@@ -183,7 +181,7 @@ impl MinecraftModule {
     /// GetWhitelist - 
     /// Name Description Optional
     /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetWhitelist(&self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    pub fn GetWhitelist(&mut self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<HashMap<String, Value>>>("MinecraftModule/GetWhitelist".to_string(), args)
     }
@@ -192,7 +190,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` ID String  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn KickUserByID(&self, ID: String) -> core::result::Result<Value, reqwest::Error> {
+    pub fn KickUserByID(&mut self, ID: String) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ID".to_string(), ID.into());
         self.ampapi.api_call::<Value>("MinecraftModule/KickUserByID".to_string(), args)
@@ -202,7 +200,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` ID String  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn KillByID(&self, ID: String) -> core::result::Result<Value, reqwest::Error> {
+    pub fn KillByID(&mut self, ID: String) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ID".to_string(), ID.into());
         self.ampapi.api_call::<Value>("MinecraftModule/KillByID".to_string(), args)
@@ -211,7 +209,7 @@ impl MinecraftModule {
     /// LoadOPList - 
     /// Name Description Optional
     /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn LoadOPList(&self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    pub fn LoadOPList(&mut self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<HashMap<String, Value>>>("MinecraftModule/LoadOPList".to_string(), args)
     }
@@ -220,7 +218,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` UserOrUUID String  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn RemoveOPEntry(&self, UserOrUUID: String) -> core::result::Result<Value, reqwest::Error> {
+    pub fn RemoveOPEntry(&mut self, UserOrUUID: String) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("UserOrUUID".to_string(), UserOrUUID.into());
         self.ampapi.api_call::<Value>("MinecraftModule/RemoveOPEntry".to_string(), args)
@@ -230,7 +228,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` UserOrUUID String  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn RemoveWhitelistEntry(&self, UserOrUUID: String) -> core::result::Result<Value, reqwest::Error> {
+    pub fn RemoveWhitelistEntry(&mut self, UserOrUUID: String) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("UserOrUUID".to_string(), UserOrUUID.into());
         self.ampapi.api_call::<Value>("MinecraftModule/RemoveWhitelistEntry".to_string(), args)
@@ -240,7 +238,7 @@ impl MinecraftModule {
     /// Name Description Optional
     /// * `param` ID String  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn SmiteByID(&self, ID: String) -> core::result::Result<Value, reqwest::Error> {
+    pub fn SmiteByID(&mut self, ID: String) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ID".to_string(), ID.into());
         self.ampapi.api_call::<Value>("MinecraftModule/SmiteByID".to_string(), args)

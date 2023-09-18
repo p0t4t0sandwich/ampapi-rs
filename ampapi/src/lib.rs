@@ -1,6 +1,7 @@
 #![crate_name = "ampapi"]
 
 use std::collections::HashMap;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 use serde::de;
 
@@ -29,6 +30,10 @@ pub struct AMPAPI {
     pub remember_me_token: String,
     /// session_id - The session ID to use for authentication
     pub session_id: String,
+    /// last_api_call - Time of the last API call
+    last_api_call: i64,
+    /// relog_interval - The interval to relog at
+    relog_interval: i64,
 }
 
 /// AMPAPI methods
@@ -56,6 +61,8 @@ impl AMPAPI {
             password,
             remember_me_token,
             session_id,
+            last_api_call: SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis() as i64,
+            relog_interval: 1000*60*5,
         }
     }
 
@@ -63,7 +70,15 @@ impl AMPAPI {
     /// * `endpoint` - The endpoint to call
     /// * `args` - A map of arguments to pass to the endpoint
     /// Returns Result<T, reqwest::Error>
-    pub fn api_call<T: de::DeserializeOwned>(&self, endpoint: String, args: HashMap<String, Value>) -> Result<T, reqwest::Error> {
+    pub fn api_call<T: de::DeserializeOwned>(&mut self, endpoint: String, args: HashMap<String, Value>) -> Result<T, reqwest::Error> {
+        // Check the last API call time, and if it's been more than the relog interval, relog.
+        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis() as i64;
+        if now - self.last_api_call > self.relog_interval {
+            self.last_api_call = now;
+            let _ = self.login();
+        } else {
+            self.last_api_call = now;
+        }
         let mut map: HashMap<String, Value> = HashMap::new();
         map.insert("SESSIONID".to_string(), Value::String(self.session_id.to_string()));
         for (key, value) in args.iter() {
@@ -76,7 +91,7 @@ impl AMPAPI {
             .json(&map)
             .header("Accept", "application/json")
             .header("Content-Type", "application/json")
-            .header("User-Agent", "ampapi-rust/1.0.0")
+            .header("User-Agent", "ampapi-rust/0.1.1")
             .send()?
             .json::<T>()?;
         Ok(response)
@@ -84,12 +99,18 @@ impl AMPAPI {
 
     /// AMPAPI.login - Simplified login function
     /// Returns Result<LoginResult, reqwest::Error>
-    pub fn login(&self) -> Result<LoginResult, reqwest::Error> {
+    pub fn login(&mut self) -> Result<LoginResult, reqwest::Error> {
         let mut args = HashMap::new();
         args.insert("username".to_string(), Value::String(self.username.clone()));
-        args.insert("password".to_string(), Value::String(self.password.clone()));
+        args.insert("password".to_string(), Value::String("".to_string());
         args.insert("token".to_string(), Value::String(self.remember_me_token.clone()));
         args.insert("rememberMe".to_string(), Value::Bool(true));
+
+        // If remember me token is empty, use the password.
+        if self.remember_me_token == "" {
+            args.insert("password".to_string(), Value::String(self.password.clone()));
+        }
+
         self.api_call::<LoginResult>("Core/Login".to_string(), args)
     }
 }

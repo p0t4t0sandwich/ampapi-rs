@@ -1,9 +1,8 @@
-#[allow(unused_imports)]
+#![allow(dead_code, non_camel_case_types, non_snake_case, unused_imports, unused_mut)]
 use crate::{AMPAPI, types::*};
 
 use std::collections::HashMap;
 
-#[allow(unused_imports)]
 use serde_json::{Value, Map};
 
 /// A Rust library for the AMP API
@@ -15,7 +14,6 @@ pub struct ADSModule {
     pub ampapi: AMPAPI
 }
 
-#[allow(non_snake_case, dead_code, unused_mut)]
 impl ADSModule {
 	///new - Creates a new ADSModule object
 	pub fn new(ampapi: AMPAPI) -> ADSModule {
@@ -28,7 +26,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` newDatastore Value  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn AddDatastore(&self, newDatastore: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn AddDatastore(&mut self, newDatastore: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("newDatastore".to_string(), newDatastore.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/AddDatastore".to_string(), args)
@@ -40,7 +38,7 @@ impl ADSModule {
     /// * `param` Args Map<String, Value>  False
     /// * `param` RebuildConfiguration bool  True
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn ApplyInstanceConfiguration(&self, InstanceID: UUID, Args: Map<String, Value>, RebuildConfiguration: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn ApplyInstanceConfiguration(&mut self, InstanceID: UUID, Args: Map<String, Value>, RebuildConfiguration: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceID".to_string(), InstanceID.into());
         args.insert("Args".to_string(), Args.into());
@@ -56,7 +54,7 @@ impl ADSModule {
     /// * `param` Secret String  True
     /// * `param` RestartIfPreviouslyRunning bool  True
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn ApplyTemplate(&self, InstanceID: UUID, TemplateID: i32, NewFriendlyName: String, Secret: String, RestartIfPreviouslyRunning: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn ApplyTemplate(&mut self, InstanceID: UUID, TemplateID: i32, NewFriendlyName: String, Secret: String, RestartIfPreviouslyRunning: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceID".to_string(), InstanceID.into());
         args.insert("TemplateID".to_string(), TemplateID.into());
@@ -74,7 +72,7 @@ impl ADSModule {
     /// * `param` Port i32  False
     /// * `param` InstanceID UUID  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn AttachADS(&self, Friendly: String, IsHTTPS: bool, Host: String, Port: i32, InstanceID: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn AttachADS(&mut self, Friendly: String, IsHTTPS: bool, Host: String, Port: i32, InstanceID: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Friendly".to_string(), Friendly.into());
         args.insert("IsHTTPS".to_string(), IsHTTPS.into());
@@ -89,7 +87,7 @@ impl ADSModule {
     /// * `param` Id i32  False
     /// * `param` NewName String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn CloneTemplate(&self, Id: i32, NewName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn CloneTemplate(&mut self, Id: i32, NewName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Id".to_string(), Id.into());
         args.insert("NewName".to_string(), NewName.into());
@@ -100,7 +98,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceName String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn ConvertToManaged(&self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn ConvertToManaged(&mut self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/ConvertToManaged".to_string(), args)
@@ -110,7 +108,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` Name String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn CreateDeploymentTemplate(&self, Name: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn CreateDeploymentTemplate(&mut self, Name: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Name".to_string(), Name.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/CreateDeploymentTemplate".to_string(), args)
@@ -134,7 +132,7 @@ impl ADSModule {
     /// * `param` DisplayImageSource String  True
     /// * `param` TargetDatastore i32  True
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn CreateInstance(&self, TargetADSInstance: UUID, NewInstanceId: UUID, Module: String, InstanceName: String, FriendlyName: String, IPBinding: String, PortNumber: i32, AdminUsername: String, AdminPassword: String, ProvisionSettings: Map<String, Value>, AutoConfigure: bool, PostCreate: Value, StartOnBoot: bool, DisplayImageSource: String, TargetDatastore: i32) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn CreateInstance(&mut self, TargetADSInstance: UUID, NewInstanceId: UUID, Module: String, InstanceName: String, FriendlyName: String, IPBinding: String, PortNumber: i32, AdminUsername: String, AdminPassword: String, ProvisionSettings: Map<String, Value>, AutoConfigure: bool, PostCreate: Value, StartOnBoot: bool, DisplayImageSource: String, TargetDatastore: i32) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("TargetADSInstance".to_string(), TargetADSInstance.into());
         args.insert("NewInstanceId".to_string(), NewInstanceId.into());
@@ -159,7 +157,7 @@ impl ADSModule {
     /// * `param` Instance Value  False
     /// * `param` PostCreate Value  True
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn CreateLocalInstance(&self, Instance: Value, PostCreate: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn CreateLocalInstance(&mut self, Instance: Value, PostCreate: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Instance".to_string(), Instance.into());
         args.insert("PostCreate".to_string(), PostCreate.into());
@@ -170,7 +168,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` id i32  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn DeleteDatastore(&self, id: i32) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn DeleteDatastore(&mut self, id: i32) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("id".to_string(), id.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/DeleteDatastore".to_string(), args)
@@ -180,7 +178,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` Id i32  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn DeleteDeploymentTemplate(&self, Id: i32) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn DeleteDeploymentTemplate(&mut self, Id: i32) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Id".to_string(), Id.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/DeleteDeploymentTemplate".to_string(), args)
@@ -190,7 +188,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceName String  False
     /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
-    pub fn DeleteInstance(&self, InstanceName: String) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+    pub fn DeleteInstance(&mut self, InstanceName: String) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         self.ampapi.api_call::<Result<RunningTask>>("ADSModule/DeleteInstance".to_string(), args)
@@ -200,7 +198,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceId UUID  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn DeleteInstanceUsers(&self, InstanceId: UUID) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn DeleteInstanceUsers(&mut self, InstanceId: UUID) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
         self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/DeleteInstanceUsers".to_string(), args)
@@ -219,7 +217,7 @@ impl ADSModule {
     /// * `param` PostCreate Value 0: Do nothing, 1: Start instance only, 2: Start instance and update application, 3: Full application startup. True
     /// * `param` ExtraProvisionSettings Map<String, Value> A dictionary of setting nodes and values to create the new instance with. Identical in function to the provisioning arguments in the template itself. True
     /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
-    pub fn DeployTemplate(&self, TemplateID: i32, NewUsername: String, NewPassword: String, NewEmail: String, RequiredTags: Vec<String>, Tag: String, FriendlyName: String, Secret: String, PostCreate: Value, ExtraProvisionSettings: Map<String, Value>) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+    pub fn DeployTemplate(&mut self, TemplateID: i32, NewUsername: String, NewPassword: String, NewEmail: String, RequiredTags: Vec<String>, Tag: String, FriendlyName: String, Secret: String, PostCreate: Value, ExtraProvisionSettings: Map<String, Value>) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("TemplateID".to_string(), TemplateID.into());
         args.insert("NewUsername".to_string(), NewUsername.into());
@@ -238,7 +236,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` Id UUID  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn DetatchTarget(&self, Id: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn DetatchTarget(&mut self, Id: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Id".to_string(), Id.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/DetatchTarget".to_string(), args)
@@ -248,7 +246,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` SourceArchive String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn ExtractEverywhere(&self, SourceArchive: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn ExtractEverywhere(&mut self, SourceArchive: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("SourceArchive".to_string(), SourceArchive.into());
         self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/ExtractEverywhere".to_string(), args)
@@ -258,7 +256,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` instanceId UUID  False
     /// Return core::result::Result<Result<Vec<EndpointInfo>>, reqwest::Error>
-    pub fn GetApplicationEndpoints(&self, instanceId: UUID) -> core::result::Result<Result<Vec<EndpointInfo>>, reqwest::Error> {
+    pub fn GetApplicationEndpoints(&mut self, instanceId: UUID) -> core::result::Result<Result<Vec<EndpointInfo>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("instanceId".to_string(), instanceId.into());
         self.ampapi.api_call::<Result<Vec<EndpointInfo>>>("ADSModule/GetApplicationEndpoints".to_string(), args)
@@ -268,7 +266,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` id i32  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn GetDatastore(&self, id: i32) -> core::result::Result<Value, reqwest::Error> {
+    pub fn GetDatastore(&mut self, id: i32) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("id".to_string(), id.into());
         self.ampapi.api_call::<Value>("ADSModule/GetDatastore".to_string(), args)
@@ -278,7 +276,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` datastoreId i32  False
     /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetDatastoreInstances(&self, datastoreId: i32) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    pub fn GetDatastoreInstances(&mut self, datastoreId: i32) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("datastoreId".to_string(), datastoreId.into());
         self.ampapi.api_call::<Result<HashMap<String, Value>>>("ADSModule/GetDatastoreInstances".to_string(), args)
@@ -287,7 +285,7 @@ impl ADSModule {
     /// GetDatastores - 
     /// Name Description Optional
     /// Return core::result::Result<Result<Vec<InstanceDatastore>>, reqwest::Error>
-    pub fn GetDatastores(&self, ) -> core::result::Result<Result<Vec<InstanceDatastore>>, reqwest::Error> {
+    pub fn GetDatastores(&mut self, ) -> core::result::Result<Result<Vec<InstanceDatastore>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<Vec<InstanceDatastore>>>("ADSModule/GetDatastores".to_string(), args)
     }
@@ -295,7 +293,7 @@ impl ADSModule {
     /// GetDeploymentTemplates - 
     /// Name Description Optional
     /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetDeploymentTemplates(&self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    pub fn GetDeploymentTemplates(&mut self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<Vec<Value>>>("ADSModule/GetDeploymentTemplates".to_string(), args)
     }
@@ -304,7 +302,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` GroupId UUID  False
     /// Return core::result::Result<Result<IADSInstance>, reqwest::Error>
-    pub fn GetGroup(&self, GroupId: UUID) -> core::result::Result<Result<IADSInstance>, reqwest::Error> {
+    pub fn GetGroup(&mut self, GroupId: UUID) -> core::result::Result<Result<IADSInstance>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("GroupId".to_string(), GroupId.into());
         self.ampapi.api_call::<Result<IADSInstance>>("ADSModule/GetGroup".to_string(), args)
@@ -314,7 +312,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceId UUID  False
     /// Return core::result::Result<Result<Instance>, reqwest::Error>
-    pub fn GetInstance(&self, InstanceId: UUID) -> core::result::Result<Result<Instance>, reqwest::Error> {
+    pub fn GetInstance(&mut self, InstanceId: UUID) -> core::result::Result<Result<Instance>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
         self.ampapi.api_call::<Result<Instance>>("ADSModule/GetInstance".to_string(), args)
@@ -324,7 +322,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceName String  False
     /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetInstanceNetworkInfo(&self, InstanceName: String) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    pub fn GetInstanceNetworkInfo(&mut self, InstanceName: String) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         self.ampapi.api_call::<Result<Vec<Value>>>("ADSModule/GetInstanceNetworkInfo".to_string(), args)
@@ -333,7 +331,7 @@ impl ADSModule {
     /// GetInstanceStatuses - 
     /// Name Description Optional
     /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetInstanceStatuses(&self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    pub fn GetInstanceStatuses(&mut self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<HashMap<String, Value>>>("ADSModule/GetInstanceStatuses".to_string(), args)
     }
@@ -341,7 +339,7 @@ impl ADSModule {
     /// GetInstances - 
     /// Name Description Optional
     /// Return core::result::Result<Result<Vec<IADSInstance>>, reqwest::Error>
-    pub fn GetInstances(&self, ) -> core::result::Result<Result<Vec<IADSInstance>>, reqwest::Error> {
+    pub fn GetInstances(&mut self, ) -> core::result::Result<Result<Vec<IADSInstance>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<Vec<IADSInstance>>>("ADSModule/GetInstances".to_string(), args)
     }
@@ -349,7 +347,7 @@ impl ADSModule {
     /// GetLocalInstances - 
     /// Name Description Optional
     /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetLocalInstances(&self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    pub fn GetLocalInstances(&mut self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<HashMap<String, Value>>>("ADSModule/GetLocalInstances".to_string(), args)
     }
@@ -358,7 +356,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` ModuleName String  False
     /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetProvisionArguments(&self, ModuleName: String) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    pub fn GetProvisionArguments(&mut self, ModuleName: String) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ModuleName".to_string(), ModuleName.into());
         self.ampapi.api_call::<Result<HashMap<String, Value>>>("ADSModule/GetProvisionArguments".to_string(), args)
@@ -367,7 +365,7 @@ impl ADSModule {
     /// GetProvisionFitness - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn GetProvisionFitness(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn GetProvisionFitness(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("ADSModule/GetProvisionFitness".to_string(), args)
     }
@@ -375,7 +373,7 @@ impl ADSModule {
     /// GetSupportedApplications - 
     /// Name Description Optional
     /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetSupportedApplications(&self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    pub fn GetSupportedApplications(&mut self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<Vec<Value>>>("ADSModule/GetSupportedApplications".to_string(), args)
     }
@@ -383,7 +381,7 @@ impl ADSModule {
     /// GetTargetInfo - 
     /// Name Description Optional
     /// Return core::result::Result<Result<RemoteTargetInfo>, reqwest::Error>
-    pub fn GetTargetInfo(&self, ) -> core::result::Result<Result<RemoteTargetInfo>, reqwest::Error> {
+    pub fn GetTargetInfo(&mut self, ) -> core::result::Result<Result<RemoteTargetInfo>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<RemoteTargetInfo>>("ADSModule/GetTargetInfo".to_string(), args)
     }
@@ -394,7 +392,7 @@ impl ADSModule {
     /// * `param` SettingNode String  False
     /// * `param` Values Vec<String>  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn HandoutInstanceConfigs(&self, ForModule: String, SettingNode: String, Values: Vec<String>) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn HandoutInstanceConfigs(&mut self, ForModule: String, SettingNode: String, Values: Vec<String>) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("ForModule".to_string(), ForModule.into());
         args.insert("SettingNode".to_string(), SettingNode.into());
@@ -406,7 +404,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceId UUID  False
     /// Return core::result::Result<ActionResult<String>, reqwest::Error>
-    pub fn ManageInstance(&self, InstanceId: UUID) -> core::result::Result<ActionResult<String>, reqwest::Error> {
+    pub fn ManageInstance(&mut self, InstanceId: UUID) -> core::result::Result<ActionResult<String>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
         self.ampapi.api_call::<ActionResult<String>>("ADSModule/ManageInstance".to_string(), args)
@@ -421,7 +419,7 @@ impl ADSModule {
     /// * `param` Description String  False
     /// * `param` Open bool  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn ModifyCustomFirewallRule(&self, instanceId: UUID, PortNumber: i32, Range: i32, Protocol: Value, Description: String, Open: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn ModifyCustomFirewallRule(&mut self, instanceId: UUID, PortNumber: i32, Range: i32, Protocol: Value, Description: String, Open: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("instanceId".to_string(), instanceId.into());
         args.insert("PortNumber".to_string(), PortNumber.into());
@@ -437,7 +435,7 @@ impl ADSModule {
     /// * `param` instanceId UUID  False
     /// * `param` datastoreId i32  False
     /// Return core::result::Result<Task<RunningTask>, reqwest::Error>
-    pub fn MoveInstanceDatastore(&self, instanceId: UUID, datastoreId: i32) -> core::result::Result<Task<RunningTask>, reqwest::Error> {
+    pub fn MoveInstanceDatastore(&mut self, instanceId: UUID, datastoreId: i32) -> core::result::Result<Task<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("instanceId".to_string(), instanceId.into());
         args.insert("datastoreId".to_string(), datastoreId.into());
@@ -447,7 +445,7 @@ impl ADSModule {
     /// ReactivateLocalInstances - 
     /// Name Description Optional
     /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
-    pub fn ReactivateLocalInstances(&self, ) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+    pub fn ReactivateLocalInstances(&mut self, ) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Result<RunningTask>>("ADSModule/ReactivateLocalInstances".to_string(), args)
     }
@@ -455,7 +453,7 @@ impl ADSModule {
     /// RefreshAppCache - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn RefreshAppCache(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn RefreshAppCache(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("ADSModule/RefreshAppCache".to_string(), args)
     }
@@ -464,7 +462,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` GroupId UUID  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn RefreshGroup(&self, GroupId: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn RefreshGroup(&mut self, GroupId: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("GroupId".to_string(), GroupId.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/RefreshGroup".to_string(), args)
@@ -474,7 +472,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceId String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn RefreshInstanceConfig(&self, InstanceId: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn RefreshInstanceConfig(&mut self, InstanceId: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
         self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/RefreshInstanceConfig".to_string(), args)
@@ -483,7 +481,7 @@ impl ADSModule {
     /// RefreshRemoteConfigStores - 
     /// Name Description Optional
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn RefreshRemoteConfigStores(&self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn RefreshRemoteConfigStores(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Value>("ADSModule/RefreshRemoteConfigStores".to_string(), args)
     }
@@ -497,7 +495,7 @@ impl ADSModule {
     /// * `param` twoFactorToken String  False
     /// * `param` friendlyName String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn RegisterTarget(&self, controllerUrl: String, myUrl: String, username: String, password: String, twoFactorToken: String, friendlyName: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn RegisterTarget(&mut self, controllerUrl: String, myUrl: String, username: String, password: String, twoFactorToken: String, friendlyName: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("controllerUrl".to_string(), controllerUrl.into());
         args.insert("myUrl".to_string(), myUrl.into());
@@ -512,7 +510,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` id i32  False
     /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
-    pub fn RepairDatastore(&self, id: i32) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+    pub fn RepairDatastore(&mut self, id: i32) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("id".to_string(), id.into());
         self.ampapi.api_call::<Result<RunningTask>>("ADSModule/RepairDatastore".to_string(), args)
@@ -522,7 +520,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` datastoreId i32  False
     /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
-    pub fn RequestDatastoreSizeCalculation(&self, datastoreId: i32) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+    pub fn RequestDatastoreSizeCalculation(&mut self, datastoreId: i32) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("datastoreId".to_string(), datastoreId.into());
         self.ampapi.api_call::<Result<RunningTask>>("ADSModule/RequestDatastoreSizeCalculation".to_string(), args)
@@ -532,7 +530,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceName String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn RestartInstance(&self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn RestartInstance(&mut self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/RestartInstance".to_string(), args)
@@ -543,7 +541,7 @@ impl ADSModule {
     /// * `param` id String  False
     /// * `param` REQ_RAWJSON String  False
     /// Return core::result::Result<Task<Value>, reqwest::Error>
-    pub fn Servers(&self, id: String, REQ_RAWJSON: String) -> core::result::Result<Task<Value>, reqwest::Error> {
+    pub fn Servers(&mut self, id: String, REQ_RAWJSON: String) -> core::result::Result<Task<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("id".to_string(), id.into());
         args.insert("REQ_RAWJSON".to_string(), REQ_RAWJSON.into());
@@ -556,7 +554,7 @@ impl ADSModule {
     /// * `param` SettingNode String  False
     /// * `param` Value String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn SetInstanceConfig(&self, InstanceName: String, SettingNode: String, Value: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn SetInstanceConfig(&mut self, InstanceName: String, SettingNode: String, Value: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         args.insert("SettingNode".to_string(), SettingNode.into());
@@ -569,7 +567,7 @@ impl ADSModule {
     /// * `param` InstanceId UUID  False
     /// * `param` PortMappings Map<String, Value>  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn SetInstanceNetworkInfo(&self, InstanceId: UUID, PortMappings: Map<String, Value>) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn SetInstanceNetworkInfo(&mut self, InstanceId: UUID, PortMappings: Map<String, Value>) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
         args.insert("PortMappings".to_string(), PortMappings.into());
@@ -581,7 +579,7 @@ impl ADSModule {
     /// * `param` InstanceName String  False
     /// * `param` Suspended bool  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn SetInstanceSuspended(&self, InstanceName: String, Suspended: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn SetInstanceSuspended(&mut self, InstanceName: String, Suspended: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         args.insert("Suspended".to_string(), Suspended.into());
@@ -591,7 +589,7 @@ impl ADSModule {
     /// StartAllInstances - 
     /// Name Description Optional
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn StartAllInstances(&self, ) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn StartAllInstances(&mut self, ) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/StartAllInstances".to_string(), args)
     }
@@ -600,7 +598,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceName String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn StartInstance(&self, InstanceName: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn StartInstance(&mut self, InstanceName: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/StartInstance".to_string(), args)
@@ -609,7 +607,7 @@ impl ADSModule {
     /// StopAllInstances - 
     /// Name Description Optional
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn StopAllInstances(&self, ) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn StopAllInstances(&mut self, ) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/StopAllInstances".to_string(), args)
     }
@@ -618,7 +616,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceName String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn StopInstance(&self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn StopInstance(&mut self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/StopInstance".to_string(), args)
@@ -630,7 +628,7 @@ impl ADSModule {
     /// * `param` username String  False
     /// * `param` password String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn TestADSLoginDetails(&self, url: String, username: String, password: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn TestADSLoginDetails(&mut self, url: String, username: String, password: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("url".to_string(), url.into());
         args.insert("username".to_string(), username.into());
@@ -642,7 +640,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` updatedDatastore Value  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn UpdateDatastore(&self, updatedDatastore: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn UpdateDatastore(&mut self, updatedDatastore: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("updatedDatastore".to_string(), updatedDatastore.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/UpdateDatastore".to_string(), args)
@@ -652,7 +650,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` templateToUpdate Value  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn UpdateDeploymentTemplate(&self, templateToUpdate: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn UpdateDeploymentTemplate(&mut self, templateToUpdate: Value) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("templateToUpdate".to_string(), templateToUpdate.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/UpdateDeploymentTemplate".to_string(), args)
@@ -672,7 +670,7 @@ impl ADSModule {
     /// * `param` ContainerMaxCPU Value  False
     /// * `param` ContainerImage String  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn UpdateInstanceInfo(&self, InstanceId: String, FriendlyName: String, Description: String, StartOnBoot: bool, Suspended: bool, ExcludeFromFirewall: bool, RunInContainer: bool, ContainerMemory: i32, MemoryPolicy: Value, ContainerMaxCPU: Value, ContainerImage: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn UpdateInstanceInfo(&mut self, InstanceId: String, FriendlyName: String, Description: String, StartOnBoot: bool, Suspended: bool, ExcludeFromFirewall: bool, RunInContainer: bool, ContainerMemory: i32, MemoryPolicy: Value, ContainerMaxCPU: Value, ContainerImage: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
         args.insert("FriendlyName".to_string(), FriendlyName.into());
@@ -692,7 +690,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` TargetID UUID  False
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn UpdateTarget(&self, TargetID: UUID) -> core::result::Result<Value, reqwest::Error> {
+    pub fn UpdateTarget(&mut self, TargetID: UUID) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("TargetID".to_string(), TargetID.into());
         self.ampapi.api_call::<Value>("ADSModule/UpdateTarget".to_string(), args)
@@ -706,7 +704,7 @@ impl ADSModule {
     /// * `param` Description String  False
     /// * `param` Tags Vec<String>  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn UpdateTargetInfo(&self, Id: UUID, FriendlyName: String, Url: URL, Description: String, Tags: Vec<String>) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn UpdateTargetInfo(&mut self, Id: UUID, FriendlyName: String, Url: URL, Description: String, Tags: Vec<String>) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Id".to_string(), Id.into());
         args.insert("FriendlyName".to_string(), FriendlyName.into());
@@ -720,7 +718,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` RestartRunning bool  False
     /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn UpgradeAllInstances(&self, RestartRunning: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    pub fn UpgradeAllInstances(&mut self, RestartRunning: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("RestartRunning".to_string(), RestartRunning.into());
         self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/UpgradeAllInstances".to_string(), args)
@@ -730,7 +728,7 @@ impl ADSModule {
     /// Name Description Optional
     /// * `param` InstanceName String  False
     /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
-    pub fn UpgradeInstance(&self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
+    pub fn UpgradeInstance(&mut self, InstanceName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceName".to_string(), InstanceName.into());
         self.ampapi.api_call::<ActionResult<Value>>("ADSModule/UpgradeInstance".to_string(), args)
