@@ -102,7 +102,7 @@ impl AMPAPI {
     pub fn login(&mut self) -> Result<LoginResult, reqwest::Error> {
         let mut args = HashMap::new();
         args.insert("username".to_string(), Value::String(self.username.clone()));
-        args.insert("password".to_string(), Value::String("".to_string());
+        args.insert("password".to_string(), Value::String("".to_string()));
         args.insert("token".to_string(), Value::String(self.remember_me_token.clone()));
         args.insert("rememberMe".to_string(), Value::Bool(true));
 
