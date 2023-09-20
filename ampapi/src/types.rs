@@ -1,3 +1,5 @@
+#![allow(non_snake_case, dead_code)]
+
 use serde::{ Deserialize, Serialize };
 
 use serde_json::{Map, Value};
@@ -9,7 +11,6 @@ use serde_repr::{Serialize_repr, Deserialize_repr};
 
 /// ActionResult - Generic response type for calls that return a result and a reason for failure
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ActionResult<T> {
     /// true if successful, false if not
@@ -22,7 +23,6 @@ pub struct ActionResult<T> {
 
 /// AMPVersion - AMP version information
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AMPVersion {
     /// The major version number
@@ -41,7 +41,6 @@ pub struct AMPVersion {
 
 /// Branding - Defines the Branding object as part of the ModuleInfo object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Branding {
     /// Whether to display branding
@@ -76,7 +75,6 @@ pub struct Branding {
 
 /// ConsoleEntry - Struct for the result of API.Core#GetUpdates.ConsoleEntries
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ConsoleEntry {
     /// The timestamp of the console entry
@@ -93,7 +91,6 @@ pub struct ConsoleEntry {
 
 /// CPUInfo - CPU information object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CPUInfo {
     /// Number of CPU sockets
@@ -114,7 +111,6 @@ pub struct CPUInfo {
 
 /// EndpointInfo - An application endpoint object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EndpointInfo {
     /// The display name of the endpoint
@@ -127,7 +123,6 @@ pub struct EndpointInfo {
 
 /// IADSInstance - An ADS instance object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IADSInstance {
     /// The ADS instance ID
@@ -136,6 +131,8 @@ pub struct IADSInstance {
     pub InstanceId: UUID,
     /// The friendly name
     pub FriendlyName: String,
+    /// The description
+    pub Description: String,
     /// Whether the instance is disabled
     pub Disabled: bool,
     /// Whether the instance is remote
@@ -158,11 +155,16 @@ pub struct IADSInstance {
     pub AvailableInstances: Vec<Instance>,
     /// The available IPs
     pub AvailableIPs: Vec<String>,
+    /// The URL
+    pub URL: String,
+    /// The tags
+    pub Tags: Vec<String>,
+    /// The tag names
+    pub TagNames: Vec<String>,
 }
 
 /// Instance - An instance object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Instance {
     /// The instance ID
@@ -173,8 +175,12 @@ pub struct Instance {
     pub InstanceName: String,
     /// The friendly name
     pub FriendlyName: String,
+    /// The description
+    pub Description: String,
     /// The module
     pub Module: String,
+    /// The module display name
+    pub ModuleDisplayName: String,
     /// The AMP version
     pub AMPVersion: AMPVersion,
     /// Whether HTTPS is enabled
@@ -210,6 +216,8 @@ pub struct Instance {
     pub ContainerMemoryPolicy: i32,
     /// The container CPUs
     pub ContainerCPUs: f32,
+    /// The specific Docker image
+    pub SpecificDockerImage: String,
     /// The metrics
     pub Metrics: Map<String, Value>, // TODO: HashMap<String, Metric>
     /// The application endpoints
@@ -224,7 +232,6 @@ pub struct Instance {
 
 /// InstanceDatastore - A datastore object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InstanceDatastore {
     /// The datastore ID
@@ -235,7 +242,6 @@ pub struct InstanceDatastore {
 
 /// LoginResult - Response type for API.Core.Login
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LoginResult {
     /// Whether the login was successful
@@ -254,7 +260,6 @@ pub struct LoginResult {
 
 /// Message - Message type for API.Core.GetUpdates status messages (along with WS keep alive)
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Message {
     /// The message ID
@@ -304,7 +309,6 @@ pub mod option_string_serde {
 
 /// Metric - A metric object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Metric {
     /// The raw value
@@ -331,7 +335,6 @@ pub struct Metric {
 
 /// ModuleInfo - A struct to represent the object returned by the ADSModule#GetModuleInfo() method
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ModuleInfo {
     /// The name of the module
@@ -388,7 +391,6 @@ pub struct ModuleInfo {
 
 /// PlatformInfo - Platform information object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PlatformInfo {
     /// The CPU information object
@@ -407,7 +409,6 @@ pub struct PlatformInfo {
 
 /// RemoteTargetInfo - A struct to represent the object returned by the ADSModule#GetTargetInfo() method
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RemoteTargetInfo {
     /// The IP address list
@@ -422,7 +423,6 @@ pub struct RemoteTargetInfo {
 
 /// Result - Generic response type for calls that return a result
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Result<T> {
     /// The result object
@@ -431,7 +431,6 @@ pub struct Result<T> {
 
 /// RunningTask - A running task object returned by the Core#GetTasks() method
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RunningTask {
     /// Whether the task is the primary task
@@ -466,7 +465,6 @@ pub struct RunningTask {
 
 /// SettingsSpec - Response object for Core.GetSettingsSpec()
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SettingsSpec {
     /// The result
@@ -475,7 +473,6 @@ pub struct SettingsSpec {
 
 /// Spec - A setting specification object
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Spec {
     /// Whether the setting is read-only
@@ -557,7 +554,6 @@ pub enum State {
 
 /// Status - Struct for the result of API.Core.GetStatus
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Status {
     /// The state of the instance
@@ -570,7 +566,6 @@ pub struct Status {
 
 /// Task - Generic response type for calls that return a result
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Task<T> {
     /// The result object
@@ -579,7 +574,6 @@ pub struct Task<T> {
 
 /// UpdateInfo - A struct to represent the object returned by the ADSModule#GetUpdateInfo() method
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateInfo {
     /// Whether an update is available
@@ -598,7 +592,6 @@ pub struct UpdateInfo {
 
 /// Updates - Response type for API.Core.GetUpdates
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Updates {
     /// The status of the server
@@ -615,13 +608,14 @@ pub struct Updates {
 
 /// UserInfo - Information about the user
 /// Author: p0t4t0sandwich
-#[allow(non_snake_case, dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserInfo {
     /// The user ID
     pub ID: UUID,
     /// The username
     pub Username: String,
+    /// The email address
+    pub EmailAddress: String,
     /// Wether 2FA is enabled
     pub IsTwoFactorEnabled: bool,
     /// Whether the user is disabled
