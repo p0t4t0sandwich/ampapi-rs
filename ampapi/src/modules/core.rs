@@ -30,6 +30,18 @@ impl Core {
         self.ampapi.api_call::<Value>("Core/AcknowledgeAMPUpdate".to_string(), args)
     }
 
+    /// ActivateAMPLicence - 
+    /// Name Description Optional
+    /// * `param` LicenceKey String  False
+    /// * `param` QueryOnly bool  True
+    /// Return core::result::Result<Task<ActionResult<LicenceInfo>>, reqwest::Error>
+    pub fn ActivateAMPLicence(&mut self, LicenceKey: String, QueryOnly: bool) -> core::result::Result<Task<ActionResult<LicenceInfo>>, reqwest::Error> {
+        let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("LicenceKey".to_string(), LicenceKey.into());
+        args.insert("QueryOnly".to_string(), QueryOnly.into());
+        self.ampapi.api_call::<Task<ActionResult<LicenceInfo>>>("Core/ActivateAMPLicence".to_string(), args)
+    }
+
     /// AddEventTrigger - 
     /// Name Description Optional
     /// * `param` triggerId UUID  False

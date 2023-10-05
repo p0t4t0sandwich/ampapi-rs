@@ -240,6 +240,26 @@ pub struct InstanceDatastore {
     pub FriendlyName: String,
 }
 
+/// LicenceInfo - A struct to represent the object returned by the ADSModule#GetLicenceInfo() method
+/// Author: p0t4t0sandwich
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LicenceInfo {
+    /// The licence key
+    pub LicenceKey: UUID,
+    /// The grade
+    pub Grade: UUID,
+    /// The grade name
+    pub GradeName: String,
+    /// The product
+    pub Product: UUID,
+    /// The product name
+    pub ProductName: String,
+    /// The expiry date
+    pub Expires: String,
+    /// The usage
+    pub Usage: i32,
+}
+
 /// LoginResult - Response type for API.Core.Login
 /// Author: p0t4t0sandwich
 #[derive(Debug, Clone, Serialize, Deserialize)]
