@@ -480,9 +480,11 @@ impl ADSModule {
 
     /// RefreshRemoteConfigStores - 
     /// Name Description Optional
+    /// * `param` force bool  True
     /// Return core::result::Result<Value, reqwest::Error>
-    pub fn RefreshRemoteConfigStores(&mut self, ) -> core::result::Result<Value, reqwest::Error> {
+    pub fn RefreshRemoteConfigStores(&mut self, force: bool) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
+        args.insert("force".to_string(), force.into());
         self.ampapi.api_call::<Value>("ADSModule/RefreshRemoteConfigStores".to_string(), args)
     }
 
@@ -669,8 +671,8 @@ impl ADSModule {
     /// * `param` MemoryPolicy Value  False
     /// * `param` ContainerMaxCPU Value  False
     /// * `param` ContainerImage String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn UpdateInstanceInfo(&mut self, InstanceId: String, FriendlyName: String, Description: String, StartOnBoot: bool, Suspended: bool, ExcludeFromFirewall: bool, RunInContainer: bool, ContainerMemory: i32, MemoryPolicy: Value, ContainerMaxCPU: Value, ContainerImage: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn UpdateInstanceInfo(&mut self, InstanceId: String, FriendlyName: String, Description: String, StartOnBoot: bool, Suspended: bool, ExcludeFromFirewall: bool, RunInContainer: bool, ContainerMemory: i32, MemoryPolicy: Value, ContainerMaxCPU: Value, ContainerImage: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
         args.insert("FriendlyName".to_string(), FriendlyName.into());
@@ -683,7 +685,7 @@ impl ADSModule {
         args.insert("MemoryPolicy".to_string(), MemoryPolicy.into());
         args.insert("ContainerMaxCPU".to_string(), ContainerMaxCPU.into());
         args.insert("ContainerImage".to_string(), ContainerImage.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("ADSModule/UpdateInstanceInfo".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("ADSModule/UpdateInstanceInfo".to_string(), args)
     }
 
     /// UpdateTarget - 
