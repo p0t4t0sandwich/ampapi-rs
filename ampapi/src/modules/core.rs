@@ -34,12 +34,12 @@ impl Core {
     /// Name Description Optional
     /// * `param` LicenceKey String  False
     /// * `param` QueryOnly bool  True
-    /// Return core::result::Result<Task<ActionResult<LicenceInfo>>, reqwest::Error>
-    pub fn ActivateAMPLicence(&mut self, LicenceKey: String, QueryOnly: bool) -> core::result::Result<Task<ActionResult<LicenceInfo>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<LicenceInfo>, reqwest::Error>
+    pub fn ActivateAMPLicence(&mut self, LicenceKey: String, QueryOnly: bool) -> core::result::Result<ActionResult<LicenceInfo>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("LicenceKey".to_string(), LicenceKey.into());
         args.insert("QueryOnly".to_string(), QueryOnly.into());
-        self.ampapi.api_call::<Task<ActionResult<LicenceInfo>>>("Core/ActivateAMPLicence".to_string(), args)
+        self.ampapi.api_call::<ActionResult<LicenceInfo>>("Core/ActivateAMPLicence".to_string(), args)
     }
 
     /// AddEventTrigger - 
@@ -88,10 +88,10 @@ impl Core {
 
     /// AsyncTest - DEV: Async test method
     /// Name Description Optional
-    /// Return core::result::Result<Task<String>, reqwest::Error>
-    pub fn AsyncTest(&mut self, ) -> core::result::Result<Task<String>, reqwest::Error> {
+    /// Return core::result::Result<String, reqwest::Error>
+    pub fn AsyncTest(&mut self, ) -> core::result::Result<String, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Task<String>>("Core/AsyncTest".to_string(), args)
+        self.ampapi.api_call::<String>("Core/AsyncTest".to_string(), args)
     }
 
     /// CancelTask - 
@@ -124,38 +124,38 @@ impl Core {
     /// * `param` OldPassword String  False
     /// * `param` NewPassword String  False
     /// * `param` TwoFactorPIN String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn ChangeUserPassword(&mut self, Username: String, OldPassword: String, NewPassword: String, TwoFactorPIN: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn ChangeUserPassword(&mut self, Username: String, OldPassword: String, NewPassword: String, TwoFactorPIN: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
         args.insert("OldPassword".to_string(), OldPassword.into());
         args.insert("NewPassword".to_string(), NewPassword.into());
         args.insert("TwoFactorPIN".to_string(), TwoFactorPIN.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/ChangeUserPassword".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/ChangeUserPassword".to_string(), args)
     }
 
     /// ConfirmTwoFactorSetup - 
     /// Name Description Optional
     /// * `param` Username String  False
     /// * `param` TwoFactorCode String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn ConfirmTwoFactorSetup(&mut self, Username: String, TwoFactorCode: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn ConfirmTwoFactorSetup(&mut self, Username: String, TwoFactorCode: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
         args.insert("TwoFactorCode".to_string(), TwoFactorCode.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/ConfirmTwoFactorSetup".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/ConfirmTwoFactorSetup".to_string(), args)
     }
 
     /// CreateRole - 
     /// Name Description Optional
     /// * `param` Name String  False
     /// * `param` AsCommonRole bool  True
-    /// Return core::result::Result<Task<ActionResult<UUID>>, reqwest::Error>
-    pub fn CreateRole(&mut self, Name: String, AsCommonRole: bool) -> core::result::Result<Task<ActionResult<UUID>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<UUID>, reqwest::Error>
+    pub fn CreateRole(&mut self, Name: String, AsCommonRole: bool) -> core::result::Result<ActionResult<UUID>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Name".to_string(), Name.into());
         args.insert("AsCommonRole".to_string(), AsCommonRole.into());
-        self.ampapi.api_call::<Task<ActionResult<UUID>>>("Core/CreateRole".to_string(), args)
+        self.ampapi.api_call::<ActionResult<UUID>>("Core/CreateRole".to_string(), args)
     }
 
     /// CreateTestTask - DEV: Creates a non-ending task with 50% progress for testing purposes
@@ -169,11 +169,11 @@ impl Core {
     /// CreateUser - 
     /// Name Description Optional
     /// * `param` Username String  False
-    /// Return core::result::Result<Task<ActionResult<UUID>>, reqwest::Error>
-    pub fn CreateUser(&mut self, Username: String) -> core::result::Result<Task<ActionResult<UUID>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<UUID>, reqwest::Error>
+    pub fn CreateUser(&mut self, Username: String) -> core::result::Result<ActionResult<UUID>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
-        self.ampapi.api_call::<Task<ActionResult<UUID>>>("Core/CreateUser".to_string(), args)
+        self.ampapi.api_call::<ActionResult<UUID>>("Core/CreateUser".to_string(), args)
     }
 
     /// CurrentSessionHasPermission - 
@@ -189,21 +189,21 @@ impl Core {
     /// DeleteInstanceUsers - 
     /// Name Description Optional
     /// * `param` InstanceId UUID  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn DeleteInstanceUsers(&mut self, InstanceId: UUID) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn DeleteInstanceUsers(&mut self, InstanceId: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("InstanceId".to_string(), InstanceId.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/DeleteInstanceUsers".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/DeleteInstanceUsers".to_string(), args)
     }
 
     /// DeleteRole - 
     /// Name Description Optional
     /// * `param` RoleId UUID  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn DeleteRole(&mut self, RoleId: UUID) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn DeleteRole(&mut self, RoleId: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("RoleId".to_string(), RoleId.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/DeleteRole".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/DeleteRole".to_string(), args)
     }
 
     /// DeleteTask - 
@@ -231,23 +231,23 @@ impl Core {
     /// DeleteUser - 
     /// Name Description Optional
     /// * `param` Username String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn DeleteUser(&mut self, Username: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn DeleteUser(&mut self, Username: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/DeleteUser".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/DeleteUser".to_string(), args)
     }
 
     /// DisableTwoFactor - 
     /// Name Description Optional
     /// * `param` Password String  False
     /// * `param` TwoFactorCode String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn DisableTwoFactor(&mut self, Password: String, TwoFactorCode: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn DisableTwoFactor(&mut self, Password: String, TwoFactorCode: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Password".to_string(), Password.into());
         args.insert("TwoFactorCode".to_string(), TwoFactorCode.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/DisableTwoFactor".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/DisableTwoFactor".to_string(), args)
     }
 
     /// DismissAllTasks - 
@@ -308,12 +308,12 @@ impl Core {
     /// Name Description Optional
     /// * `param` Username String  False
     /// * `param` Password String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn EnableTwoFactor(&mut self, Username: String, Password: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn EnableTwoFactor(&mut self, Username: String, Password: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
         args.insert("Password".to_string(), Password.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/EnableTwoFactor".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/EnableTwoFactor".to_string(), args)
     }
 
     /// EndUserSession - 
@@ -329,29 +329,29 @@ impl Core {
     /// GetAMPRolePermissions - 
     /// Name Description Optional
     /// * `param` RoleId UUID  False
-    /// Return core::result::Result<Task<Vec<String>>, reqwest::Error>
-    pub fn GetAMPRolePermissions(&mut self, RoleId: UUID) -> core::result::Result<Task<Vec<String>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<String>, reqwest::Error>
+    pub fn GetAMPRolePermissions(&mut self, RoleId: UUID) -> core::result::Result<Vec<String>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("RoleId".to_string(), RoleId.into());
-        self.ampapi.api_call::<Task<Vec<String>>>("Core/GetAMPRolePermissions".to_string(), args)
+        self.ampapi.api_call::<Vec<String>>("Core/GetAMPRolePermissions".to_string(), args)
     }
 
     /// GetAMPUserInfo - 
     /// Name Description Optional
     /// * `param` Username String  False
-    /// Return core::result::Result<Task<UserInfo>, reqwest::Error>
-    pub fn GetAMPUserInfo(&mut self, Username: String) -> core::result::Result<Task<UserInfo>, reqwest::Error> {
+    /// Return core::result::Result<UserInfo, reqwest::Error>
+    pub fn GetAMPUserInfo(&mut self, Username: String) -> core::result::Result<UserInfo, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
-        self.ampapi.api_call::<Task<UserInfo>>("Core/GetAMPUserInfo".to_string(), args)
+        self.ampapi.api_call::<UserInfo>("Core/GetAMPUserInfo".to_string(), args)
     }
 
     /// GetAMPUsersSummary - 
     /// Name Description Optional
-    /// Return core::result::Result<Task<Vec<Value>>, reqwest::Error>
-    pub fn GetAMPUsersSummary(&mut self, ) -> core::result::Result<Task<Vec<Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetAMPUsersSummary(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Task<Vec<Value>>>("Core/GetAMPUsersSummary".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("Core/GetAMPUsersSummary".to_string(), args)
     }
 
     /// GetAPISpec - 
@@ -364,30 +364,30 @@ impl Core {
 
     /// GetActiveAMPSessions - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetActiveAMPSessions(&mut self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetActiveAMPSessions(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<Vec<Value>>>("Core/GetActiveAMPSessions".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("Core/GetActiveAMPSessions".to_string(), args)
     }
 
     /// GetAllAMPUserInfo - 
     /// Name Description Optional
-    /// Return core::result::Result<Task<Vec<UserInfo>>, reqwest::Error>
-    pub fn GetAllAMPUserInfo(&mut self, ) -> core::result::Result<Task<Vec<UserInfo>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<UserInfo>, reqwest::Error>
+    pub fn GetAllAMPUserInfo(&mut self, ) -> core::result::Result<Vec<UserInfo>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Task<Vec<UserInfo>>>("Core/GetAllAMPUserInfo".to_string(), args)
+        self.ampapi.api_call::<Vec<UserInfo>>("Core/GetAllAMPUserInfo".to_string(), args)
     }
 
     /// GetAuditLogEntries - 
     /// Name Description Optional
     /// * `param` Before Option<Value>  False
     /// * `param` Count i32  False
-    /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetAuditLogEntries(&mut self, Before: Option<Value>, Count: i32) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetAuditLogEntries(&mut self, Before: Option<Value>, Count: i32) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Before".to_string(), Before.into());
         args.insert("Count".to_string(), Count.into());
-        self.ampapi.api_call::<Result<Vec<Value>>>("Core/GetAuditLogEntries".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("Core/GetAuditLogEntries".to_string(), args)
     }
 
     /// GetConfig - 
@@ -403,11 +403,11 @@ impl Core {
     /// GetConfigs - 
     /// Name Description Optional
     /// * `param` nodes Vec<String>  False
-    /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetConfigs(&mut self, nodes: Vec<String>) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetConfigs(&mut self, nodes: Vec<String>) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("nodes".to_string(), nodes.into());
-        self.ampapi.api_call::<Result<HashMap<String, Value>>>("Core/GetConfigs".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("Core/GetConfigs".to_string(), args)
     }
 
     /// GetDiagnosticsInfo - 
@@ -420,10 +420,10 @@ impl Core {
 
     /// GetModuleInfo - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<ModuleInfo>, reqwest::Error>
-    pub fn GetModuleInfo(&mut self, ) -> core::result::Result<Result<ModuleInfo>, reqwest::Error> {
+    /// Return core::result::Result<ModuleInfo, reqwest::Error>
+    pub fn GetModuleInfo(&mut self, ) -> core::result::Result<ModuleInfo, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<ModuleInfo>>("Core/GetModuleInfo".to_string(), args)
+        self.ampapi.api_call::<ModuleInfo>("Core/GetModuleInfo".to_string(), args)
     }
 
     /// GetNewGuid - 
@@ -444,10 +444,10 @@ impl Core {
 
     /// GetPortSummaries - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetPortSummaries(&mut self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetPortSummaries(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<Vec<Value>>>("Core/GetPortSummaries".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("Core/GetPortSummaries".to_string(), args)
     }
 
     /// GetProvisionSpec - 
@@ -462,38 +462,38 @@ impl Core {
     /// Name Description Optional
     /// * `param` Description String  True
     /// * `param` IsTemporary bool  True
-    /// Return core::result::Result<Task<String>, reqwest::Error>
-    pub fn GetRemoteLoginToken(&mut self, Description: String, IsTemporary: bool) -> core::result::Result<Task<String>, reqwest::Error> {
+    /// Return core::result::Result<String, reqwest::Error>
+    pub fn GetRemoteLoginToken(&mut self, Description: String, IsTemporary: bool) -> core::result::Result<String, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Description".to_string(), Description.into());
         args.insert("IsTemporary".to_string(), IsTemporary.into());
-        self.ampapi.api_call::<Task<String>>("Core/GetRemoteLoginToken".to_string(), args)
+        self.ampapi.api_call::<String>("Core/GetRemoteLoginToken".to_string(), args)
     }
 
     /// GetRole - 
     /// Name Description Optional
     /// * `param` RoleId UUID  False
-    /// Return core::result::Result<Task<Value>, reqwest::Error>
-    pub fn GetRole(&mut self, RoleId: UUID) -> core::result::Result<Task<Value>, reqwest::Error> {
+    /// Return core::result::Result<Value, reqwest::Error>
+    pub fn GetRole(&mut self, RoleId: UUID) -> core::result::Result<Value, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("RoleId".to_string(), RoleId.into());
-        self.ampapi.api_call::<Task<Value>>("Core/GetRole".to_string(), args)
+        self.ampapi.api_call::<Value>("Core/GetRole".to_string(), args)
     }
 
     /// GetRoleData - 
     /// Name Description Optional
-    /// Return core::result::Result<Task<Vec<Value>>, reqwest::Error>
-    pub fn GetRoleData(&mut self, ) -> core::result::Result<Task<Vec<Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetRoleData(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Task<Vec<Value>>>("Core/GetRoleData".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("Core/GetRoleData".to_string(), args)
     }
 
     /// GetRoleIds - 
     /// Name Description Optional
-    /// Return core::result::Result<Task<HashMap<UUID, Value>>, reqwest::Error>
-    pub fn GetRoleIds(&mut self, ) -> core::result::Result<Task<HashMap<UUID, Value>>, reqwest::Error> {
+    /// Return core::result::Result<Map<UUID, Value>, reqwest::Error>
+    pub fn GetRoleIds(&mut self, ) -> core::result::Result<Map<UUID, Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Task<HashMap<UUID, Value>>>("Core/GetRoleIds".to_string(), args)
+        self.ampapi.api_call::<Map<UUID, Value>>("Core/GetRoleIds".to_string(), args)
     }
 
     /// GetScheduleData - 
@@ -518,10 +518,10 @@ impl Core {
 
     /// GetSettingsSpec - 
     /// Name Description Optional
-    /// Return core::result::Result<SettingsSpec, reqwest::Error>
-    pub fn GetSettingsSpec(&mut self, ) -> core::result::Result<SettingsSpec, reqwest::Error> {
+    /// Return core::result::Result<Map<String, Value>, reqwest::Error>
+    pub fn GetSettingsSpec(&mut self, ) -> core::result::Result<Map<String, Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<SettingsSpec>("Core/GetSettingsSpec".to_string(), args)
+        self.ampapi.api_call::<Map<String, Value>>("Core/GetSettingsSpec".to_string(), args)
     }
 
     /// GetStatus - 
@@ -534,10 +534,10 @@ impl Core {
 
     /// GetTasks - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<Vec<RunningTask>>, reqwest::Error>
-    pub fn GetTasks(&mut self, ) -> core::result::Result<Result<Vec<RunningTask>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<RunningTask>, reqwest::Error>
+    pub fn GetTasks(&mut self, ) -> core::result::Result<Vec<RunningTask>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<Vec<RunningTask>>>("Core/GetTasks".to_string(), args)
+        self.ampapi.api_call::<Vec<RunningTask>>("Core/GetTasks".to_string(), args)
     }
 
     /// GetTimeIntervalTrigger - 
@@ -552,10 +552,10 @@ impl Core {
 
     /// GetUpdateInfo - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<UpdateInfo>, reqwest::Error>
-    pub fn GetUpdateInfo(&mut self, ) -> core::result::Result<Result<UpdateInfo>, reqwest::Error> {
+    /// Return core::result::Result<UpdateInfo, reqwest::Error>
+    pub fn GetUpdateInfo(&mut self, ) -> core::result::Result<UpdateInfo, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<UpdateInfo>>("Core/GetUpdateInfo".to_string(), args)
+        self.ampapi.api_call::<UpdateInfo>("Core/GetUpdateInfo".to_string(), args)
     }
 
     /// GetUpdates - Gets changes to the server status, in addition to any notifications or console output that have occured since the last time GetUpdates() was called by the current session.
@@ -586,10 +586,10 @@ impl Core {
 
     /// GetUserList - Returns a list of in-application users
     /// Name Description Optional
-    /// Return core::result::Result<Result<HashMap<String, String>>, reqwest::Error>
-    pub fn GetUserList(&mut self, ) -> core::result::Result<Result<HashMap<String, String>>, reqwest::Error> {
+    /// Return core::result::Result<Map<String, Value>, reqwest::Error>
+    pub fn GetUserList(&mut self, ) -> core::result::Result<Map<String, Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<HashMap<String, String>>>("Core/GetUserList".to_string(), args)
+        self.ampapi.api_call::<Map<String, Value>>("Core/GetUserList".to_string(), args)
     }
 
     /// GetWebauthnChallenge - 
@@ -612,10 +612,10 @@ impl Core {
 
     /// GetWebauthnCredentialSummaries - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetWebauthnCredentialSummaries(&mut self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetWebauthnCredentialSummaries(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<Vec<Value>>>("Core/GetWebauthnCredentialSummaries".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("Core/GetWebauthnCredentialSummaries".to_string(), args)
     }
 
     /// GetWebserverMetrics - 
@@ -680,24 +680,24 @@ impl Core {
     /// Name Description Optional
     /// * `param` RoleId UUID  False
     /// * `param` NewName String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn RenameRole(&mut self, RoleId: UUID, NewName: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn RenameRole(&mut self, RoleId: UUID, NewName: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("RoleId".to_string(), RoleId.into());
         args.insert("NewName".to_string(), NewName.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/RenameRole".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/RenameRole".to_string(), args)
     }
 
     /// ResetUserPassword - 
     /// Name Description Optional
     /// * `param` Username String  False
     /// * `param` NewPassword String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn ResetUserPassword(&mut self, Username: String, NewPassword: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn ResetUserPassword(&mut self, Username: String, NewPassword: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
         args.insert("NewPassword".to_string(), NewPassword.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/ResetUserPassword".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/ResetUserPassword".to_string(), args)
     }
 
     /// Restart - 
@@ -759,13 +759,13 @@ impl Core {
     /// * `param` RoleId UUID  False
     /// * `param` PermissionNode String  False
     /// * `param` Enabled Option<bool>  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn SetAMPRolePermission(&mut self, RoleId: UUID, PermissionNode: String, Enabled: Option<bool>) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn SetAMPRolePermission(&mut self, RoleId: UUID, PermissionNode: String, Enabled: Option<bool>) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("RoleId".to_string(), RoleId.into());
         args.insert("PermissionNode".to_string(), PermissionNode.into());
         args.insert("Enabled".to_string(), Enabled.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/SetAMPRolePermission".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/SetAMPRolePermission".to_string(), args)
     }
 
     /// SetAMPUserRoleMembership - 
@@ -773,13 +773,13 @@ impl Core {
     /// * `param` UserId UUID  False
     /// * `param` RoleId UUID  False
     /// * `param` IsMember bool  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn SetAMPUserRoleMembership(&mut self, UserId: UUID, RoleId: UUID, IsMember: bool) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn SetAMPUserRoleMembership(&mut self, UserId: UUID, RoleId: UUID, IsMember: bool) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("UserId".to_string(), UserId.into());
         args.insert("RoleId".to_string(), RoleId.into());
         args.insert("IsMember".to_string(), IsMember.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/SetAMPUserRoleMembership".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/SetAMPUserRoleMembership".to_string(), args)
     }
 
     /// SetConfig - 
@@ -860,12 +860,12 @@ impl Core {
     /// Name Description Optional
     /// * `param` EmailAddress String  False
     /// * `param` TwoFactorPIN String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn UpdateAccountInfo(&mut self, EmailAddress: String, TwoFactorPIN: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn UpdateAccountInfo(&mut self, EmailAddress: String, TwoFactorPIN: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("EmailAddress".to_string(), EmailAddress.into());
         args.insert("TwoFactorPIN".to_string(), TwoFactorPIN.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/UpdateAccountInfo".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/UpdateAccountInfo".to_string(), args)
     }
 
     /// UpdateApplication - 
@@ -884,8 +884,8 @@ impl Core {
     /// * `param` CannotChangePassword bool  False
     /// * `param` MustChangePassword bool  False
     /// * `param` EmailAddress String  True
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn UpdateUserInfo(&mut self, Username: String, Disabled: bool, PasswordExpires: bool, CannotChangePassword: bool, MustChangePassword: bool, EmailAddress: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn UpdateUserInfo(&mut self, Username: String, Disabled: bool, PasswordExpires: bool, CannotChangePassword: bool, MustChangePassword: bool, EmailAddress: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Username".to_string(), Username.into());
         args.insert("Disabled".to_string(), Disabled.into());
@@ -893,7 +893,7 @@ impl Core {
         args.insert("CannotChangePassword".to_string(), CannotChangePassword.into());
         args.insert("MustChangePassword".to_string(), MustChangePassword.into());
         args.insert("EmailAddress".to_string(), EmailAddress.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("Core/UpdateUserInfo".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("Core/UpdateUserInfo".to_string(), args)
     }
 
     /// UpgradeAMP - 

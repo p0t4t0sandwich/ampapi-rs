@@ -24,10 +24,10 @@ impl EmailSenderPlugin {
 
     /// TestSMTPSettings - 
     /// Name Description Optional
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn TestSMTPSettings(&mut self, ) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn TestSMTPSettings(&mut self, ) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("EmailSenderPlugin/TestSMTPSettings".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("EmailSenderPlugin/TestSMTPSettings".to_string(), args)
     }
 
 }

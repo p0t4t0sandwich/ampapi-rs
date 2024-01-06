@@ -274,6 +274,8 @@ pub struct LoginResult {
     pub rememberMeToken: String,
     /// The user information
     pub userInfo: UserInfo,
+    /// The result reason
+    pub resultReason: String,
     /// The result
     pub result: f64,
 }
@@ -441,14 +443,6 @@ pub struct RemoteTargetInfo {
     pub DeploysInContainers: bool,
 }
 
-/// Result - Generic response type for calls that return a result
-/// Author: p0t4t0sandwich
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Result<T> {
-    /// The result object
-    pub result: T,
-}
-
 /// RunningTask - A running task object returned by the Core#GetTasks() method
 /// Author: p0t4t0sandwich
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -483,18 +477,10 @@ pub struct RunningTask {
     pub Status: String,
 }
 
-/// SettingsSpec - Response object for Core.GetSettingsSpec()
+/// SettingSpec - Response object for Core.GetSettingsSpec()
 /// Author: p0t4t0sandwich
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct SettingsSpec {
-    /// The result
-    pub result: Map<String, Value>, // TODO: HashMap<String, Spec>
-}
-
-/// Spec - A setting specification object
-/// Author: p0t4t0sandwich
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Spec {
+pub struct SettingSpec {
     /// Whether the setting is read-only
     pub ReadOnly: bool,
     /// The name
@@ -582,14 +568,6 @@ pub struct Status {
     pub Uptime: String,
     /// The metrics
     pub Metrics: Map<String, Value>, // TODO: HashMap<String, Metric>
-}
-
-/// Task - Generic response type for calls that return a result
-/// Author: p0t4t0sandwich
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Task<T> {
-    /// The result object
-    pub result: T,
 }
 
 /// UpdateInfo - A struct to represent the object returned by the ADSModule#GetUpdateInfo() method

@@ -137,11 +137,11 @@ impl FileManagerPlugin {
     /// GetDirectoryListing - 
     /// Name Description Optional
     /// * `param` Dir String  False
-    /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetDirectoryListing(&mut self, Dir: String) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetDirectoryListing(&mut self, Dir: String) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("Dir".to_string(), Dir.into());
-        self.ampapi.api_call::<Result<HashMap<String, Value>>>("FileManagerPlugin/GetDirectoryListing".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("FileManagerPlugin/GetDirectoryListing".to_string(), args)
     }
 
     /// GetFileChunk - 
