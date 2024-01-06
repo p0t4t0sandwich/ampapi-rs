@@ -25,11 +25,11 @@ impl LocalFileBackupPlugin {
     /// DeleteFromS3 - 
     /// Name Description Optional
     /// * `param` BackupId UUID  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn DeleteFromS3(&mut self, BackupId: UUID) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn DeleteFromS3(&mut self, BackupId: UUID) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("BackupId".to_string(), BackupId.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("LocalFileBackupPlugin/DeleteFromS3".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("LocalFileBackupPlugin/DeleteFromS3".to_string(), args)
     }
 
     /// DeleteLocalBackup - 
@@ -45,19 +45,19 @@ impl LocalFileBackupPlugin {
     /// DownloadFromS3 - 
     /// Name Description Optional
     /// * `param` BackupId UUID  False
-    /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
-    pub fn DownloadFromS3(&mut self, BackupId: UUID) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+    /// Return core::result::Result<RunningTask, reqwest::Error>
+    pub fn DownloadFromS3(&mut self, BackupId: UUID) -> core::result::Result<RunningTask, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("BackupId".to_string(), BackupId.into());
-        self.ampapi.api_call::<Result<RunningTask>>("LocalFileBackupPlugin/DownloadFromS3".to_string(), args)
+        self.ampapi.api_call::<RunningTask>("LocalFileBackupPlugin/DownloadFromS3".to_string(), args)
     }
 
     /// GetBackups - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<Vec<Value>>, reqwest::Error>
-    pub fn GetBackups(&mut self, ) -> core::result::Result<Result<Vec<Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetBackups(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<Vec<Value>>>("LocalFileBackupPlugin/GetBackups".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("LocalFileBackupPlugin/GetBackups".to_string(), args)
     }
 
     /// RestoreBackup - 
@@ -101,11 +101,11 @@ impl LocalFileBackupPlugin {
     /// UploadToS3 - 
     /// Name Description Optional
     /// * `param` BackupId UUID  False
-    /// Return core::result::Result<Result<RunningTask>, reqwest::Error>
-    pub fn UploadToS3(&mut self, BackupId: UUID) -> core::result::Result<Result<RunningTask>, reqwest::Error> {
+    /// Return core::result::Result<RunningTask, reqwest::Error>
+    pub fn UploadToS3(&mut self, BackupId: UUID) -> core::result::Result<RunningTask, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("BackupId".to_string(), BackupId.into());
-        self.ampapi.api_call::<Result<RunningTask>>("LocalFileBackupPlugin/UploadToS3".to_string(), args)
+        self.ampapi.api_call::<RunningTask>("LocalFileBackupPlugin/UploadToS3".to_string(), args)
     }
 
 }

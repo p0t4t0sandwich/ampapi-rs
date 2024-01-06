@@ -33,21 +33,21 @@ impl MinecraftModule {
     /// AddOPEntry - 
     /// Name Description Optional
     /// * `param` UserOrUUID String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn AddOPEntry(&mut self, UserOrUUID: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn AddOPEntry(&mut self, UserOrUUID: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("UserOrUUID".to_string(), UserOrUUID.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("MinecraftModule/AddOPEntry".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("MinecraftModule/AddOPEntry".to_string(), args)
     }
 
     /// AddToWhitelist - 
     /// Name Description Optional
     /// * `param` UserOrUUID String  False
-    /// Return core::result::Result<Task<ActionResult<Value>>, reqwest::Error>
-    pub fn AddToWhitelist(&mut self, UserOrUUID: String) -> core::result::Result<Task<ActionResult<Value>>, reqwest::Error> {
+    /// Return core::result::Result<ActionResult<Value>, reqwest::Error>
+    pub fn AddToWhitelist(&mut self, UserOrUUID: String) -> core::result::Result<ActionResult<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("UserOrUUID".to_string(), UserOrUUID.into());
-        self.ampapi.api_call::<Task<ActionResult<Value>>>("MinecraftModule/AddToWhitelist".to_string(), args)
+        self.ampapi.api_call::<ActionResult<Value>>("MinecraftModule/AddToWhitelist".to_string(), args)
     }
 
     /// BanUserByID - 
@@ -71,11 +71,11 @@ impl MinecraftModule {
     /// BukGetInstallUpdatePlugin - 
     /// Name Description Optional
     /// * `param` pluginId i32  False
-    /// Return core::result::Result<Task<RunningTask>, reqwest::Error>
-    pub fn BukGetInstallUpdatePlugin(&mut self, pluginId: i32) -> core::result::Result<Task<RunningTask>, reqwest::Error> {
+    /// Return core::result::Result<RunningTask, reqwest::Error>
+    pub fn BukGetInstallUpdatePlugin(&mut self, pluginId: i32) -> core::result::Result<RunningTask, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
         args.insert("pluginId".to_string(), pluginId.into());
-        self.ampapi.api_call::<Task<RunningTask>>("MinecraftModule/BukGetInstallUpdatePlugin".to_string(), args)
+        self.ampapi.api_call::<RunningTask>("MinecraftModule/BukGetInstallUpdatePlugin".to_string(), args)
     }
 
     /// BukGetInstalledPlugins - 
@@ -180,10 +180,10 @@ impl MinecraftModule {
 
     /// GetWhitelist - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn GetWhitelist(&mut self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn GetWhitelist(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<HashMap<String, Value>>>("MinecraftModule/GetWhitelist".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("MinecraftModule/GetWhitelist".to_string(), args)
     }
 
     /// KickUserByID - 
@@ -208,10 +208,10 @@ impl MinecraftModule {
 
     /// LoadOPList - 
     /// Name Description Optional
-    /// Return core::result::Result<Result<HashMap<String, Value>>, reqwest::Error>
-    pub fn LoadOPList(&mut self, ) -> core::result::Result<Result<HashMap<String, Value>>, reqwest::Error> {
+    /// Return core::result::Result<Vec<Value>, reqwest::Error>
+    pub fn LoadOPList(&mut self, ) -> core::result::Result<Vec<Value>, reqwest::Error> {
         let mut args: HashMap<String, Value> = HashMap::new();
-        self.ampapi.api_call::<Result<HashMap<String, Value>>>("MinecraftModule/LoadOPList".to_string(), args)
+        self.ampapi.api_call::<Vec<Value>>("MinecraftModule/LoadOPList".to_string(), args)
     }
 
     /// RemoveOPEntry - 

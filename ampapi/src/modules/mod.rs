@@ -20,6 +20,8 @@ use local_file_backup_plugin::LocalFileBackupPlugin;
 mod minecraft_module;
 use minecraft_module::MinecraftModule;
 
+mod generic_module;
+
 mod rcon_plugin;
 use rcon_plugin::RCONPlugin;
 
@@ -122,6 +124,7 @@ pub struct GenericModule {
     pub EmailSenderPlugin: EmailSenderPlugin,
     pub FileManagerPlugin: FileManagerPlugin,
     pub LocalFileBackupPlugin: LocalFileBackupPlugin,
+    pub GenericModule: generic_module::GenericModule,
     pub RCONPlugin: RCONPlugin,
     pub steamcmdplugin: steamcmdplugin,
 }
@@ -162,6 +165,7 @@ impl GenericModule {
             EmailSenderPlugin: EmailSenderPlugin::new(ampapi.clone()),
             FileManagerPlugin: FileManagerPlugin::new(ampapi.clone()),
             LocalFileBackupPlugin: LocalFileBackupPlugin::new(ampapi.clone()),
+            GenericModule: generic_module::GenericModule::new(ampapi.clone()),
             RCONPlugin: RCONPlugin::new(ampapi.clone()),
             steamcmdplugin: steamcmdplugin::new(ampapi.clone()),
         };
@@ -194,6 +198,8 @@ impl GenericModule {
             self.FileManagerPlugin.ampapi.remember_me_token = login_result.rememberMeToken.clone();
             self.LocalFileBackupPlugin.ampapi.session_id = login_result.sessionID.clone();
             self.LocalFileBackupPlugin.ampapi.remember_me_token = login_result.rememberMeToken.clone();
+            self.GenericModule.ampapi.session_id = login_result.sessionID.clone();
+            self.GenericModule.ampapi.remember_me_token = login_result.rememberMeToken.clone();
             self.RCONPlugin.ampapi.session_id = login_result.sessionID.clone();
             self.RCONPlugin.ampapi.remember_me_token = login_result.rememberMeToken.clone();
             self.steamcmdplugin.ampapi.session_id = login_result.sessionID.clone();
